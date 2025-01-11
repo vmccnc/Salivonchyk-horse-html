@@ -1,0 +1,267 @@
+/* Global resets or standard styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  color: #333;
+  background: #f9f9f9;
+  line-height: 1.5;
+}
+
+/* Header */
+header {
+  background: #c30f0f;
+  color: #fff;
+  padding: 0.5rem 1rem;
+}
+
+header .logo {
+  font-weight: bold;
+  font-size: 1.5rem;
+  display: inline-block;
+  margin-right: 2rem;
+}
+
+nav ul {
+  list-style: none;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+nav ul li {
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  padding: 0.4rem 0.8rem;
+}
+
+nav ul li a:hover, 
+nav ul li a.active {
+  background: #444;
+  border-radius: 4px;
+}
+
+/* Hero Section */
+.hero {
+  background: url("https://via.placeholder.com/1200x400") center/cover no-repeat;
+  color: #fff;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+/* Highlights */
+.highlights {
+  padding: 2rem;
+  background: #fff;
+}
+
+.highlight-cards {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.highlight-cards article {
+  flex: 1;
+  background: #f0f0f0;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.highlight-cards article h3 {
+  margin-bottom: 0.5rem;
+}
+
+/* About snippet */
+.about-snippet {
+  padding: 2rem;
+  background: #e9e9e9;
+  text-align: center;
+}
+
+.about-snippet a.btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  background: #333;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+/* Quick Links Cards */
+.quick-links {
+  padding: 2rem;
+}
+
+.quick-links .cards {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.quick-links .card {
+  flex: 1;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.quick-links .card a.btn {
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  background: #333;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+/* Footer */
+footer {
+  background: #c30f0f;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+}
+
+/* Horses Page */
+.horse-filters {
+  padding: 1rem 2rem;
+  background: #e9e9e9;
+}
+.horse-filters .filters {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.horse-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.horse-card {
+  background: #fff;
+  width: calc(33.333% - 2rem);
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.horse-card img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+/* News Page */
+.news-filters {
+  padding: 1rem 2rem;
+  background: #e9e9e9;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.news-list {
+  padding: 2rem;
+}
+
+.news-item {
+  background: #fff;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.news-item .date {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* About Page */
+.about-section, .team-section, .farm-gallery {
+  padding: 2rem;
+  background: #fff;
+  margin-bottom: 1rem;
+}
+
+.team-section .owner-info {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.team-section .owner-info img {
+  max-height: 200px;
+  border-radius: 8px;
+}
+
+/* Contact Page */
+.contact-info {
+  padding: 2rem;
+  background: #fff;
+}
+
+.feedback-form {
+  padding: 2rem;
+  background: #e9e9e9;
+}
+
+.feedback-form form {
+  max-width: 600px;
+  margin: 0 auto;
+  display: grid;
+  gap: 1rem;
+}
+
+.feedback-form form div {
+  display: flex;
+  flex-direction: column;
+}
+
+.captcha-placeholder {
+  background: #fff;
+  border: 1px dashed #ccc;
+  padding: 1rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.map-section {
+  padding: 2rem;
+  background: #fff;
+  text-align: center;
+}
+
+.map-container iframe {
+  width: 100%;
+  max-width: 600px;
+  height: 450px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .highlight-cards,
+  .quick-links .cards,
+  .horse-list {
+    flex-direction: column;
+  }
+  .horse-card,
+  .quick-links .card {
+    width: 100%;
+  }
+  .team-section .owner-info {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="Latest horse farm news" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Horse Farm - News</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Header & Navigation -->
+  <header>
+    <nav>
+      <div class="logo">HorseFarm</div>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="horses.html">Horses</a></li>
+        <li><a href="news.html" class="active">News</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h1>Latest News</h1>
+
+      <!-- News Filtering/Sorting (optional) -->
+      <div class="news-filters">
+        <label for="news-date">Filter by Date:</label>
+        <input type="month" id="news-date" name="news-date" />
+
+        <label for="news-sort">Sort by Date:</label>
+        <select id="news-sort">
+          <option value="desc">Descending</option>
+          <option value="asc">Ascending</option>
+        </select>
+      </div>
+
+      <!-- News List -->
+      <div class="news-list">
+        <!-- Example news item -->
+        <article class="news-item" data-date="2025-01-05">
+          <h2>Breaking: New Racing Season Announced</h2>
+          <p class="date">January 5, 2025</p>
+          <p class="summary">Our farm is preparing for the upcoming racing season with newly trained horses ready to compete.</p>
+          <a href="news-details.html">Read More</a>
+        </article>
+
+        <article class="news-item" data-date="2025-01-01">
+          <h2>Happy New Year from HorseFarm</h2>
+          <p class="date">January 1, 2025</p>
+          <p class="summary">We wish all our clients, partners, and friends a prosperous new year!</p>
+          <a href="news-details.html">Read More</a>
+        </article>
+
+        <!-- More news items as needed -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 HorseFarm. All rights reserved.</p>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="List of our horses" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Horse Farm - Horses</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Header & Navigation -->
+  <header>
+    <nav>
+      <div class="logo">HorseFarm</div>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="horses.html" class="active">Horses</a></li>
+        <li><a href="news.html">News</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Filters Section -->
+    <section class="horse-filters">
+      <h1>Our Horses</h1>
+      <div class="filters">
+        <div>
+          <label for="filter-age">Filter by Age:</label>
+          <select id="filter-age">
+            <option value="all">All Ages</option>
+            <option value="1-3">1-3 years</option>
+            <option value="3-5">3-5 years</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="filter-races">Filter by Races:</label>
+          <select id="filter-races">
+            <option value="all">All</option>
+            <option value="0-10">0-10 races</option>
+            <option value="10-20">10-20 races</option>
+            <option value="20plus">20+ races</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="filter-wins">Filter by Wins:</label>
+          <select id="filter-wins">
+            <option value="all">All</option>
+            <option value="0-5">0-5 wins</option>
+            <option value="5-10">5-10 wins</option>
+            <option value="10plus">10+ wins</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="sort-horses">Sort by:</label>
+          <select id="sort-horses">
+            <option value="name">Name (A-Z)</option>
+            <option value="age">Age</option>
+            <option value="races">Number of Races</option>
+            <option value="wins">Number of Wins</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Horses List -->
+    <section class="horse-list">
+      <!-- Example horse card -->
+      <article class="horse-card" data-age="3" data-races="12" data-wins="4" data-name="Thunderbolt">
+        <img src="https://via.placeholder.com/300x200" alt="Horse Thunderbolt" />
+        <h2>Thunderbolt</h2>
+        <p>Age: 3 years</p>
+        <p>Races: 12 | Wins: 4</p>
+        <a href="horse-details.html">View Details</a>
+      </article>
+
+      <article class="horse-card" data-age="5" data-races="20" data-wins="7" data-name="Majesty">
+        <img src="https://via.placeholder.com/300x200" alt="Horse Majesty" />
+        <h2>Majesty</h2>
+        <p>Age: 5 years</p>
+        <p>Races: 20 | Wins: 7</p>
+        <a href="horse-details.html">View Details</a>
+      </article>
+
+      <article class="horse-card" data-age="2" data-races="5" data-wins="2" data-name="Lightning">
+        <img src="https://via.placeholder.com/300x200" alt="Horse Lightning" />
+        <h2>Lightning</h2>
+        <p>Age: 2 years</p>
+        <p>Races: 5 | Wins: 2</p>
+        <a href="horse-details.html">View Details</a>
+      </article>
+      
+      <!-- Add more horse cards as needed -->
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 HorseFarm. All rights reserved.</p>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
