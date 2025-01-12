@@ -265,3 +265,26 @@ footer {
     flex-direction: column;
   }
 }
+
+
+/* Hero section styling */
+.hero {
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/aspro-flowers.appspot.com/o/images%2Fhorses%2FFlux_Schnell_A_serene_horse_farm_scene_set_in_a_lush_green_mea_2.jpeg?alt=media&token=6ee39885-0f2f-4964-a6c4-1c2a0619a158');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  text-align: center;
+  padding: 100px 20px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1.5rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
