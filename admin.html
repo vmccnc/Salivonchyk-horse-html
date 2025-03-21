@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Админ-панель управления лошадьми">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Админка - HorseFarm</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo">HorseFarm Admin</div>
+    <ul>
+      <li><a href="index.html">На главную</a></li>
+      <li><a href="purchase.html">Покупка коней</a></li>
+      <li><a href="admin.html" class="active">Админка</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <section class="admin-section">
+    <h1>Управление лошадьми</h1>
+    <!-- Форма создания новой лошади -->
+    <div class="create-horse-form">
+      <h2>Добавить новую лошадь</h2>
+      <form id="create-horse">
+        <label for="horseName">Название лошади:</label>
+        <input type="text" id="horseName" name="horseName" required>
+        <button type="submit">Создать (draft)</button>
+      </form>
+    </div>
+
+    <!-- Список всех лошадей (включая draft, for sale, purchased) -->
+    <div class="horses-list" id="admin-horses-list">
+      <!-- Генерируется скриптом -->
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2025 HorseFarm. Админка.</p>
+</footer>
+
+<script src="admin.js"></script>
+</body>
+</html>

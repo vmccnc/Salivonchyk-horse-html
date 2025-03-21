@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="description" content="Покупка лошадей долями">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Покупка лошадей</title>
+  <title>Покупка коней</title>
+  <!-- Можно использовать общий styles.css или отдельный, см. ниже -->
   <link rel="stylesheet" href="purchase.css">
 </head>
 <body>
@@ -19,6 +20,7 @@
       <li><a href="about.html">About Us</a></li>
       <li><a href="contact.html">Contact Us</a></li>
       <li><a href="purchase.html" class="active">Покупка коней</a></li>
+      <li><a href="admin.html">Админка</a></li>
     </ul>
   </nav>
 </header>
@@ -28,12 +30,13 @@
   <section class="price-info">
     <h1>Покупка лошадей (долевое участие)</h1>
     <p>
-      При покупке лошади целиком: <strong>$1,000</strong><br>
-      При покупке до 10 человек (всего): <strong>$1,500</strong><br>
-      При покупке до 20 человек (всего): <strong>$2,000</strong>
+      <strong>Условия:</strong><br>
+      1 покупатель внёс 1 000 $ → лошадь сразу куплена.<br>
+      До 10 человек → общая цена 1 500 $.<br>
+      До 20 человек → общая цена 2 000 $.<br>
     </p>
     <p>Одна лошадь может быть куплена несколькими покупателями.  
-       Ниже можно увидеть текущих совладельцев и внесённые ими суммы.</p>
+       Ниже можно увидеть текущих совладельцев и внесённые ими суммы, а также остаток, который необходимо внести.</p>
   </section>
 
   <!-- Список лошадей для покупки -->
@@ -50,7 +53,7 @@
         <label for="buyerName">Ваше имя:</label>
         <input type="text" id="buyerName" name="buyerName" required>
 
-        <label for="buyerAmount">Сумма покупки (USD):</label>
+        <label for="buyerAmount">Сумма (USD):</label>
         <input type="number" min="1" id="buyerAmount" name="buyerAmount" required>
 
         <button type="submit">OK</button>
@@ -63,6 +66,7 @@
   <p>&copy; 2025 HorseFarm. Все права защищены.</p>
 </footer>
 
+<!-- Подключаем логику -->
 <script src="purchase.js"></script>
 </body>
 </html>
