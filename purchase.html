@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Покупка лошадей долями">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Покупка лошадей</title>
+  <link rel="stylesheet" href="purchase.css">
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo">HorseFarm</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="horses.html">Horses</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+      <li><a href="purchase.html" class="active">Покупка коней</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <!-- Информационный блок с условиями цены -->
+  <section class="price-info">
+    <h1>Покупка лошадей (долевое участие)</h1>
+    <p>
+      При покупке лошади целиком: <strong>$1,000</strong><br>
+      При покупке до 10 человек (всего): <strong>$1,500</strong><br>
+      При покупке до 20 человек (всего): <strong>$2,000</strong>
+    </p>
+    <p>Одна лошадь может быть куплена несколькими покупателями.  
+       Ниже можно увидеть текущих совладельцев и внесённые ими суммы.</p>
+  </section>
+
+  <!-- Список лошадей для покупки -->
+  <section id="horses-container" class="horses-container">
+    <!-- Карточки лошадей генерируются JavaScript-ом -->
+  </section>
+
+  <!-- Модальное окно для ввода данных -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span id="modal-close" class="close">&times;</span>
+      <h2>Купить часть лошади</h2>
+      <form id="purchase-form">
+        <label for="buyerName">Ваше имя:</label>
+        <input type="text" id="buyerName" name="buyerName" required>
+
+        <label for="buyerAmount">Сумма покупки (USD):</label>
+        <input type="number" min="1" id="buyerAmount" name="buyerAmount" required>
+
+        <button type="submit">OK</button>
+      </form>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <p>&copy; 2025 HorseFarm. Все права защищены.</p>
+</footer>
+
+<script src="purchase.js"></script>
+</body>
+</html>
