@@ -5,10 +5,174 @@
   <meta name="description" content="Покупка коней">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Покупка коней</title>
-  <link rel="stylesheet" href="purchase.css">
+  <style>
+    /* Basic Styles */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      color: #333;
+    }
+    header {
+      background: #333;
+      color: #fff;
+      padding: 0.5rem 1rem;
+    }
+    header .logo {
+      font-weight: bold;
+      font-size: 1.5rem;
+      display: inline-block;
+      margin-right: 2rem;
+    }
+    nav ul {
+      list-style: none;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    nav ul li {
+      display: inline-block;
+      margin-right: 1rem;
+    }
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      padding: 0.4rem 0.8rem;
+    }
+    nav ul li a:hover,
+    nav ul li a.active {
+      background: #444;
+      border-radius: 4px;
+    }
+    main {
+      padding: 1rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    footer {
+      background: #333;
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+    /* ========== Horse Card Layout ========== */
+    .horse-card {
+      display: flex;
+      background: #fff;
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    /* Left column: Photo */
+    .horse-photo {
+      width: 200px;
+      height: 200px;
+      flex-shrink: 0;
+      margin-right: 20px;
+    }
+    .horse-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+    /* Middle column: Horse description */
+    .horse-info {
+      width: 600px;
+      padding-right: 20px;
+      border-right: 1px solid #ccc;
+    }
+    .horse-info h2 {
+      margin: 0 0 10px;
+    }
+    .horse-info p {
+      margin: 5px 0;
+    }
+    .horse-info button {
+      margin-top: 10px;
+      padding: 0.6rem 1.2rem;
+      background: #333;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .horse-info button:hover {
+      background: #444;
+    }
+    /* Right column: Buyer information */
+    .buyers-info {
+      width: 300px;
+      padding-left: 20px;
+    }
+    .buyers-info h3 {
+      margin-top: 0;
+    }
+    .buyers-info p {
+      margin: 5px 0;
+    }
+    /* Modal Styles */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
+    }
+    .modal-content {
+      background: #fff;
+      margin: 10% auto;
+      padding: 1rem;
+      max-width: 400px;
+      border-radius: 8px;
+      position: relative;
+    }
+    .close {
+      color: #aaa;
+      font-size: 24px;
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      cursor: pointer;
+    }
+    .close:hover {
+      color: #333;
+    }
+    .modal-content form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .modal-content form label {
+      font-weight: bold;
+    }
+    .modal-content form input {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .modal-content button {
+      align-self: flex-start;
+      background: #333;
+      color: #fff;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .modal-content button:hover {
+      background: #444;
+    }
+  </style>
   <link rel="stylesheet" href="css/header.css" />
 </head>
 <body>
+  <!-- Header & Navigation -->
   <header>
     <div class="header-container">
       <!-- Logo -->
@@ -33,7 +197,7 @@
   <main>
     <h1>Лошади, выставленные на продажу</h1>
     <div id="horses-container">
-      <!-- Horse cards with FOR_BUY status will be inserted here -->
+      <!-- Horse cards will be inserted here from the server -->
     </div>
   </main>
   <footer>
@@ -46,8 +210,10 @@
       <span id="modal-close" class="close">&times;</span>
       <h2>Купить часть лошади</h2>
       <form id="purchase-form">
-        <label for="amount">Сумма покупки (USD):</label>
-        <input type="number" id="amount" min="1" required>
+        <label for="buyerName">Ваше имя:</label>
+        <input type="text" id="buyerName" name="buyerName" required>
+        <label for="buyerAmount">Сумма покупки (USD):</label>
+        <input type="number" id="buyerAmount" name="buyerAmount" min="1" required>
         <p>Нажимая кнопку, вы соглашаетесь на ежемесячную оплату 5% от стоимости лошади.</p>
         <button type="submit">Отправить запрос</button>
       </form>
@@ -56,35 +222,43 @@
 
   <script>
     let currentHorseId = null;
-    // Fetch horses with buyers info and filter for FOR_BUY status
+
+    // Fetch horses from the server and display those with status FOR_BUY
     fetch('https://flato.q11.jvmhost.net/api/horses/with-buyers')
       .then(response => response.json())
       .then(data => {
         const container = document.getElementById('horses-container');
+        // Filter horses with status FOR_BUY; adjust filter if needed
         const horses = data.filter(horse => horse.status === "FOR_BUY");
         horses.forEach(horse => {
           const totalPaid = horse.buyers.reduce((sum, b) => sum + b.amount, 0);
           const remaining = horse.price - totalPaid;
+          // Create a card with three columns: photo, horse info, buyers info
           const card = document.createElement('div');
           card.classList.add('horse-card');
           card.innerHTML = `
-            <h2>${horse.name}</h2>
-            <p>Год рождения: ${horse.yearOfBirth}</p>
-            <p>Порода: ${horse.breed}</p>
-            <p>Описание: ${horse.description}</p>
-            <p>Цена: $${horse.price}</p>
-            <p>Оплачено: $${totalPaid}</p>
-            <p>Осталось: $${remaining}</p>
-            <div class="buyers-list">
+            <div class="horse-photo">
+              <img src="${horse.imageUrl}" alt="${horse.name}">
+            </div>
+            <div class="horse-info">
+              <h2>${horse.name}</h2>
+              <p><strong>Год рождения:</strong> ${horse.yearOfBirth}</p>
+              <p><strong>Порода:</strong> ${horse.breed}</p>
+              <p><strong>Описание:</strong> ${horse.description}</p>
+              <p><strong>Цена:</strong> $${horse.price}</p>
+              <p><strong>Оплачено:</strong> $${totalPaid}</p>
+              <p><strong>Осталось:</strong> $${remaining}</p>
+              <button onclick="openModal(${horse.id})" ${remaining <= 0 ? 'disabled' : ''}>Купить часть лошади</button>
+            </div>
+            <div class="buyers-info">
               <h3>Покупатели:</h3>
               ${horse.buyers.length > 0 ? horse.buyers.map(buyer => `<p>${buyer.buyerName}: $${buyer.amount}</p>`).join('') : '<p>Нет покупателей</p>'}
             </div>
-            <button onclick="openModal(${horse.id})" ${remaining <= 0 ? 'disabled' : ''}>Купить часть лошади</button>
           `;
           container.appendChild(card);
         });
       })
-      .catch(error => console.error('Error:', error));
+      .catch(error => console.error('Ошибка загрузки лошадей:', error));
 
     // Modal logic
     const modal = document.getElementById('modal');
@@ -94,6 +268,7 @@
     function openModal(horseId) {
       currentHorseId = horseId;
       modal.style.display = 'block';
+      purchaseForm.reset();
     }
     modalClose.onclick = function() {
       modal.style.display = 'none';
@@ -106,10 +281,11 @@
 
     purchaseForm.addEventListener('submit', function(e) {
       e.preventDefault();
-      const amount = parseInt(document.getElementById('amount').value);
-      if (currentHorseId && amount > 0) {
-        // Assume the registered user's ID is available (e.g., via Firebase authentication)
-        const userId = 1; // Placeholder; replace with the actual user's ID.
+      const buyerName = document.getElementById('buyerName').value.trim();
+      const buyerAmount = parseFloat(document.getElementById('buyerAmount').value);
+      if (buyerName && buyerAmount > 0 && currentHorseId != null) {
+        // Placeholder user ID; replace with actual authenticated user ID as needed.
+        const userId = 1;
         fetch(`https://flato.q11.jvmhost.net/api/horses/${currentHorseId}/buy`, {
           method: 'POST',
           headers: {
@@ -117,8 +293,8 @@
           },
           body: JSON.stringify({
             userId: userId,
-            buyerName: "User" + userId, // Replace with the actual user's name.
-            amount: amount
+            buyerName: buyerName,
+            amount: buyerAmount
           })
         })
         .then(response => response.json())
@@ -127,7 +303,7 @@
           location.reload();
         })
         .catch(error => {
-          console.error('Error:', error);
+          console.error('Ошибка:', error);
           alert('Ошибка при оформлении покупки.');
         });
       }
