@@ -2,71 +2,277 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="description" content="Админ-панель управления лошадьми">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Админка - HorseFarm</title>
-  <link rel="stylesheet" href="admin.css">
+  <title>Admin - HorseFarm</title>
+  <style>
+    /* ========== Common Header Styles ========== */
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #333;
+      padding: 10px 20px;
+    }
+    .header-container .logo a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .header-container nav ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+    .header-container nav ul li {
+      margin-right: 15px;
+    }
+    .header-container nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 12px;
+      display: block;
+    }
+    .header-container nav ul li a:hover,
+    .header-container nav ul li a.active {
+      background: #444;
+      border-radius: 4px;
+    }
+    
+    /* ========== Filter Section ========== */
+    .filter-section {
+      background: #eee;
+      padding: 10px 20px;
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .filter-section .left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .filter-section label {
+      font-weight: bold;
+    }
+    .filter-section select {
+      padding: 5px 10px;
+      font-size: 16px;
+    }
+    .filter-section button {
+      padding: 5px 10px;
+      font-size: 16px;
+      background: #333;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .filter-section button:hover {
+      background: #444;
+    }
+    
+    /* ========== Horse Card Container ========== */
+    .horse-container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    /* ========== Horse Card Styles ========== */
+    .horse-card {
+      display: flex;
+      background: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .horse-card img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-right: 20px;
+    }
+    .horse-details {
+      flex: 1;
+    }
+    .horse-details h2 {
+      margin: 0 0 10px;
+    }
+    .horse-details p {
+      margin: 5px 0;
+    }
+    .buyers-info {
+      margin-top: 10px;
+      padding: 5px;
+      background: #fafafa;
+      border: 1px dashed #ccc;
+      border-radius: 4px;
+    }
+    .horse-details select {
+      margin-top: 10px;
+      padding: 5px;
+      font-size: 16px;
+    }
+    
+    /* ========== Footer ========== */
+    footer {
+      background: #333;
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      margin-top: 20px;
+    }
+  </style>
+   <link rel="stylesheet" href="css/header.css" />
 </head>
 <body>
+  <!-- Common Header -->
   <header>
-    <nav>
-      <div class="logo">HorseFarm Admin</div>
-      <ul>
-        <li><a href="index.html">На главную</a></li>
-        <li><a href="purchase.html">Покупка коней</a></li>
-        <li><a href="admin.html" class="active">Админка</a></li>
-      </ul>
-    </nav>
+    <div class="header-container">
+      <div class="logo">
+        <a href="index.html">HorseFarm</a>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="horses.html">Horses</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="purchase.html">Purchase horses</a></li>
+          <li><a href="admin.html" class="active">Admin</a></li>
+          <li><a href="login.html">LogIn/LogOut</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
-
+  
+  <!-- Filter Section with "Add horse" Button -->
+  <section class="filter-section">
+    <div class="left">
+      <label for="statusFilter">Filter by status:</label>
+      <select id="statusFilter">
+        <option value="ALL">ALL</option>
+        <option value="DRAFT">DRAFT</option>
+        <option value="FOR_BUY">FOR_BUY</option>
+        <option value="BOUGHT">BOUGHT</option>
+        <option value="BOUGHT_ON_FARM">BOUGHT_ON_FARM</option>
+      </select>
+    </div>
+    <button id="addHorseBtn">Add horse</button>
+  </section>
+  
+  <!-- Main Container for Horse Cards -->
   <main>
-    <h1>Управление лошадьми</h1>
-    <div id="admin-horses-list">
-      <!-- All horses data will be displayed here -->
+    <div class="horse-container" id="horseContainer">
+      <!-- Horse cards will be loaded here from the server -->
     </div>
   </main>
-
+  
+  <!-- Footer -->
   <footer>
-    <p>&copy; 2025 HorseFarm. Админка.</p>
+    <p>&copy; 2025 HorseFarm. All rights reserved.</p>
   </footer>
-
+  
   <script>
-    // Fetch all horses from the backend API
-    fetch('http://localhost:8090/api/horses')
-      .then(response => response.json())
-      .then(horses => {
-        const list = document.getElementById('admin-horses-list');
-        horses.forEach(horse => {
-          const card = document.createElement('div');
-          card.classList.add('admin-horse-card');
-          let buyersInfo = "Покупателей нет.";
-          // In a real app, you might fetch buyer details in a separate API call.
-          if (horse.buyers && horse.buyers.length) {
-            buyersInfo = horse.buyers.map(b =>
-              `${b.buyerName}: $${b.amount}`).join('<br>');
-          }
-          card.innerHTML = `
-            <h2>${horse.name}</h2>
-            <p>Год рождения: ${horse.yearOfBirth}</p>
-            <p>Порода: ${horse.breed}</p>
-            <p>Цена: $${horse.price}</p>
-            <p>Статус: ${horse.status}</p>
-            <p><strong>Покупатели:</strong><br>${buyersInfo}</p>
-            <button onclick="publishHorse(${horse.id})">Опубликовать</button>
-          `;
-          list.appendChild(card);
-        });
-      })
-      .catch(err => console.error(err));
+    // URL for fetching horses (includes buyer information)
+    const apiUrl = "https://flato.q11.jvmhost.net/api/horses/with-buyers";
+    // Valid statuses
+    const statuses = ["ALL", "DRAFT", "FOR_BUY", "BOUGHT", "BOUGHT_ON_FARM"];
 
-    function publishHorse(horseId) {
-      fetch(`http://localhost:8090/api/horses/${horseId}/publish`, { method: 'PUT' })
-        .then(response => response.json())
-        .then(updatedHorse => {
-          alert(`Лошадь ${updatedHorse.name} опубликована для продажи.`);
-          location.reload();
-        });
+    // Fetch horses from the server
+    async function fetchHorses() {
+      try {
+        const res = await fetch(apiUrl);
+        if (!res.ok) throw new Error("Failed to fetch horses");
+        return await res.json();
+      } catch (error) {
+        console.error(error);
+        return [];
+      }
     }
+
+    // Render horses in the container with filtering
+    async function renderHorses(filterStatus = "ALL") {
+      const horses = await fetchHorses();
+      const container = document.getElementById("horseContainer");
+      container.innerHTML = "";
+      let filteredHorses = horses;
+      if (filterStatus !== "ALL") {
+        filteredHorses = horses.filter(horse => horse.status === filterStatus);
+      }
+      filteredHorses.forEach(horse => {
+        const card = document.createElement("div");
+        card.classList.add("horse-card");
+        card.innerHTML = `
+          <img src="${horse.imageUrl}" alt="${horse.name}">
+          <div class="horse-details">
+            <h2>${horse.name}</h2>
+            <p><strong>Year of Birth:</strong> ${horse.yearOfBirth}</p>
+            <p><strong>Description:</strong> ${horse.description}</p>
+            <p><strong>Price:</strong> $${horse.price}</p>
+            <p><strong>Status:</strong> ${horse.status}</p>
+            ${ horse.status === "FOR_BUY" ? renderBuyers(horse.buyers) : "" }
+            <label for="status-${horse.id}">Change Status:</label>
+            <select id="status-${horse.id}" onchange="updateStatus(${horse.id}, this.value)">
+              ${statuses.map(s => `<option value="${s}" ${s === horse.status ? "selected" : ""}>${s}</option>`).join("")}
+            </select>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Helper function to render buyer information for FOR_BUY horses.
+    function renderBuyers(buyers) {
+      if (!buyers || buyers.length === 0) return `<p><strong>Buyers:</strong> None</p>`;
+      let html = `<div class="buyers-info"><strong>Buyers:</strong><br>`;
+      buyers.forEach(buyer => {
+        html += `<span>${buyer.buyerName}: $${buyer.amount}</span><br>`;
+      });
+      html += `</div>`;
+      return html;
+    }
+
+    // Send PATCH request to update a horse's status.
+    async function updateStatus(horseId, newStatus) {
+      try {
+        const res = await fetch(`https://flato.q11.jvmhost.net/api/horses/${horseId}/status`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status: newStatus })
+        });
+        if (!res.ok) throw new Error("Failed to update status");
+        const updatedHorse = await res.json();
+        alert(`Status of ${updatedHorse.name} updated to ${updatedHorse.status}`);
+        // Re-render horses with current filter.
+        const currentFilter = document.getElementById("statusFilter").value;
+        renderHorses(currentFilter);
+      } catch (error) {
+        console.error(error);
+        alert("Error updating status");
+      }
+    }
+
+    // Add event listener for filter drop-down.
+    document.getElementById("statusFilter").addEventListener("change", function() {
+      renderHorses(this.value);
+    });
+
+    // Add event listener for "Add horse" button.
+    document.getElementById("addHorseBtn").addEventListener("click", () => {
+      window.location.href = "add-horse.html";
+    });
+
+    // Initial render.
+    renderHorses();
   </script>
 </body>
 </html>

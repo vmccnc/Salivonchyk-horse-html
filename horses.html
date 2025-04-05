@@ -1,67 +1,149 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="description" content="List of horses for sale" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Horse Farm - Horses for Sale</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="description" content="Лошади на ферме">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лошади - HorseFarm</title>
+  <style>
+    /* Header styles */
+    header {
+      background: #333;
+      color: #fff;
+      padding: 10px 20px;
+    }
+    header .logo {
+      font-size: 24px;
+      font-weight: bold;
+      display: inline-block;
+      margin-right: 20px;
+    }
+    header nav ul {
+      list-style: none;
+      display: inline-block;
+      padding: 0;
+      margin: 0;
+      vertical-align: middle;
+    }
+    header nav ul li {
+      display: inline-block;
+      margin-right: 15px;
+    }
+    header nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 12px;
+    }
+    header nav ul li a:hover,
+    header nav ul li a.active {
+      background: #444;
+      border-radius: 4px;
+    }
+    
+    /* Main content styles */
+    .horse-container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 10px;
+    }
+    .horse-card {
+      display: flex;
+      background: #fff;
+      margin-bottom: 20px;
+      padding: 10px;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .horse-card img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-right: 20px;
+    }
+    .horse-details {
+      flex: 1;
+    }
+    .horse-details h2 {
+      margin: 0 0 10px;
+    }
+    .horse-details p {
+      margin: 5px 0;
+    }
+    
+    /* Footer styles */
+    footer {
+      background: #333;
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      margin-top: 20px;
+    }
+  </style>
+    <link rel="stylesheet" href="css/header.css" />
 </head>
 <body>
+  <!-- Header with navigation -->
   <header>
-    <nav>
-      <div class="logo">HorseFarm</div>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="horses.html" class="active">Horses</a></li>
-        <li><a href="news.html">News</a></li>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
-        <li><a href="purchase.html">Покупка коней</a></li>
-      </ul>
-    </nav>
+    <div class="header-container">
+      <!-- Logo -->
+      <div class="logo">
+        <a href="index.html">HorseFarm</a>
+      </div>
+      <!-- Navigation -->
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="horses.html">Horses</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="purchase.html">Purchase horses</a></li>
+          <li><a href="admin.html">Admin</a></li>
+          <li><a href="login.html">LogIn/LogOut</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
-  
+
   <main>
-    <h1>Лошади, выставленные на продажу</h1>
-    <div id="horses-container">
-      <!-- Horse cards will be dynamically generated here -->
+    <div class="horse-container">
+      <h1>Лошади на ферме</h1>
+      <div id="horses-container">
+        <!-- Horse cards will be generated here from the server -->
+      </div>
     </div>
   </main>
 
   <footer>
-    <p>&copy; 2025 HorseFarm. All rights reserved.</p>
+    <p>&copy; 2025 HorseFarm. Все права защищены.</p>
   </footer>
 
   <script>
-    // Fetch horses with status FOR_BUY from the backend API
-    fetch('http://localhost:8090/api/horses/for-buy')
+    // Fetch horses from the server and display those with status BOUGHT_ON_FARM
+    fetch('https://flato.q11.jvmhost.net/api/horses/with-buyers')
       .then(response => response.json())
-      .then(horses => {
+      .then(data => {
         const container = document.getElementById('horses-container');
+        // Filter horses with status BOUGHT_ON_FARM
+        const horses = data.filter(horse => horse.status === "BOUGHT_ON_FARM");
         horses.forEach(horse => {
           const card = document.createElement('div');
           card.classList.add('horse-card');
           card.innerHTML = `
-            <h2>${horse.name}</h2>
-            <p>Год рождения: ${horse.yearOfBirth}</p>
-            <p>Порода: ${horse.breed}</p>
-            <p>Описание: ${horse.description}</p>
-            <p>Цена: $${horse.price}</p>
-            <p>Статус: ${horse.status}</p>
-            <button onclick="buyHorse(${horse.id})">Купить часть лошади</button>
+            <img src="${horse.imageUrl}" alt="${horse.name}">
+            <div class="horse-details">
+              <h2>${horse.name}</h2>
+              <p><strong>Год рождения:</strong> ${horse.yearOfBirth}</p>
+              <p><strong>Порода:</strong> ${horse.breed}</p>
+              <p><strong>Пол:</strong> ${horse.gender}</p>
+              <p><strong>Описание:</strong> ${horse.description}</p>
+            </div>
           `;
           container.appendChild(card);
         });
       })
-      .catch(err => console.error(err));
-
-    // Example function for buying a horse (opens a modal, etc.)
-    function buyHorse(horseId) {
-      // Open a modal to input buyer details and then call the /api/horses/{id}/buy endpoint
-      // (Implementation similar to the previous purchase.js code.)
-      alert('Здесь будет модальное окно для покупки. Horse ID: ' + horseId);
-    }
+      .catch(error => console.error('Ошибка загрузки лошадей:', error));
   </script>
 </body>
 </html>

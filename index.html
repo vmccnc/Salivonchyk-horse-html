@@ -5,26 +5,32 @@
   <meta name="description" content="Horse breeding and performance activities" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Horse Farm - Home</title>
+  <link rel="stylesheet" href="css/header.css" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
   <!-- Header & Navigation -->
   <header>
-    <nav>
-      <div class="logo">HorseFarm</div>
-      <ul>
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="horses.html">Horses</a></li>
-        <li><a href="news.html">News</a></li>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
-        <!-- Новая ссылка: переход на страницу покупки -->
-        <li><a href="purchase.html">Покупка коней</a></li>
-        <!-- Новая ссылка: страница админки -->
-        <li><a href="admin.html">Админка</a></li>
-      </ul>
-    </nav>
+    <div class="header-container">
+      <!-- Logo -->
+      <div class="logo">
+        <a href="index.html">HorseFarm</a>
+      </div>
+      <!-- Navigation -->
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="horses.html">Horses</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="purchase.html">Purchase horses</a></li>
+          <li><a href="admin.html">Admin</a></li>
+          <li><a href="login.html">LogIn/LogOut</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
   <!-- Hero / Welcome Section -->
@@ -95,6 +101,34 @@
     <p>&copy; 2025 HorseFarm. All rights reserved.</p>
   </footer>
 
-  <script src="scripts.js"></script>
+ 
+
+  <script src="js/header.js"></script>
+  <script>
+    // Your Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyC2ey17cxMeFk9Qhv-a99qyawHZ0xP32_4",
+      authDomain: "anna-1996.firebaseapp.com",
+      projectId: "anna-1996",
+      storageBucket: "anna-1996.appspot.com",
+      messagingSenderId: "957521875132",
+      appId: "1:957521875132:web:77f46d802bfacc24a680b9",
+      measurementId: "G-S8FN10S8L1"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    auth.onAuthStateChanged(user => {
+      const userEmailElem = document.getElementById("userEmail");
+      if (user) {
+        userEmailElem.textContent = user.email;
+      } else {
+        userEmailElem.textContent = "Not logged in";
+      }
+    });
+  </script>
+
+
 </body>
 </html>

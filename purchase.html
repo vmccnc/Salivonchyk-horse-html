@@ -2,71 +2,136 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="description" content="Покупка лошадей долями">
+  <meta name="description" content="Покупка коней">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Покупка коней</title>
-  <!-- Можно использовать общий styles.css или отдельный, см. ниже -->
   <link rel="stylesheet" href="purchase.css">
+  <link rel="stylesheet" href="css/header.css" />
 </head>
 <body>
+  <header>
+    <div class="header-container">
+      <!-- Logo -->
+      <div class="logo">
+        <a href="index.html">HorseFarm</a>
+      </div>
+      <!-- Navigation -->
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="horses.html">Horses</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="purchase.html">Purchase horses</a></li>
+          <li><a href="admin.html">Admin</a></li>
+          <li><a href="login.html">LogIn/LogOut</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <h1>Лошади, выставленные на продажу</h1>
+    <div id="horses-container">
+      <!-- Horse cards with FOR_BUY status will be inserted here -->
+    </div>
+  </main>
+  <footer>
+    <p>&copy; 2025 HorseFarm. Все права защищены.</p>
+  </footer>
 
-<header>
-  <nav>
-    <div class="logo">HorseFarm</div>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="horses.html">Horses</a></li>
-      <li><a href="news.html">News</a></li>
-      <li><a href="about.html">About Us</a></li>
-      <li><a href="contact.html">Contact Us</a></li>
-      <li><a href="purchase.html" class="active">Покупка коней</a></li>
-      <li><a href="admin.html">Админка</a></li>
-    </ul>
-  </nav>
-</header>
-
-<main>
-  <!-- Информационный блок с условиями цены -->
-  <section class="price-info">
-    <h1>Покупка лошадей (долевое участие)</h1>
-    <p>
-      <strong>Условия:</strong><br>
-      1 покупатель внёс 1 000 $ → лошадь сразу куплена.<br>
-      До 10 человек → общая цена 1 500 $.<br>
-      До 20 человек → общая цена 2 000 $.<br>
-    </p>
-    <p>Одна лошадь может быть куплена несколькими покупателями.  
-       Ниже можно увидеть текущих совладельцев и внесённые ими суммы, а также остаток, который необходимо внести.</p>
-  </section>
-
-  <!-- Список лошадей для покупки -->
-  <section id="horses-container" class="horses-container">
-    <!-- Карточки лошадей генерируются JavaScript-ом -->
-  </section>
-
-  <!-- Модальное окно для ввода данных -->
+  <!-- Modal dialog for purchase -->
   <div id="modal" class="modal">
     <div class="modal-content">
       <span id="modal-close" class="close">&times;</span>
       <h2>Купить часть лошади</h2>
       <form id="purchase-form">
-        <label for="buyerName">Ваше имя:</label>
-        <input type="text" id="buyerName" name="buyerName" required>
-
-        <label for="buyerAmount">Сумма (USD):</label>
-        <input type="number" min="1" id="buyerAmount" name="buyerAmount" required>
-
-        <button type="submit">OK</button>
+        <label for="amount">Сумма покупки (USD):</label>
+        <input type="number" id="amount" min="1" required>
+        <p>Нажимая кнопку, вы соглашаетесь на ежемесячную оплату 5% от стоимости лошади.</p>
+        <button type="submit">Отправить запрос</button>
       </form>
     </div>
   </div>
-</main>
 
-<footer>
-  <p>&copy; 2025 HorseFarm. Все права защищены.</p>
-</footer>
+  <script>
+    let currentHorseId = null;
+    // Fetch horses with buyers info and filter for FOR_BUY status
+    fetch('https://flato.q11.jvmhost.net/api/horses/with-buyers')
+      .then(response => response.json())
+      .then(data => {
+        const container = document.getElementById('horses-container');
+        const horses = data.filter(horse => horse.status === "FOR_BUY");
+        horses.forEach(horse => {
+          const totalPaid = horse.buyers.reduce((sum, b) => sum + b.amount, 0);
+          const remaining = horse.price - totalPaid;
+          const card = document.createElement('div');
+          card.classList.add('horse-card');
+          card.innerHTML = `
+            <h2>${horse.name}</h2>
+            <p>Год рождения: ${horse.yearOfBirth}</p>
+            <p>Порода: ${horse.breed}</p>
+            <p>Описание: ${horse.description}</p>
+            <p>Цена: $${horse.price}</p>
+            <p>Оплачено: $${totalPaid}</p>
+            <p>Осталось: $${remaining}</p>
+            <div class="buyers-list">
+              <h3>Покупатели:</h3>
+              ${horse.buyers.length > 0 ? horse.buyers.map(buyer => `<p>${buyer.buyerName}: $${buyer.amount}</p>`).join('') : '<p>Нет покупателей</p>'}
+            </div>
+            <button onclick="openModal(${horse.id})" ${remaining <= 0 ? 'disabled' : ''}>Купить часть лошади</button>
+          `;
+          container.appendChild(card);
+        });
+      })
+      .catch(error => console.error('Error:', error));
 
-<!-- Подключаем логику -->
-<script src="purchase.js"></script>
+    // Modal logic
+    const modal = document.getElementById('modal');
+    const modalClose = document.getElementById('modal-close');
+    const purchaseForm = document.getElementById('purchase-form');
+
+    function openModal(horseId) {
+      currentHorseId = horseId;
+      modal.style.display = 'block';
+    }
+    modalClose.onclick = function() {
+      modal.style.display = 'none';
+    }
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    }
+
+    purchaseForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const amount = parseInt(document.getElementById('amount').value);
+      if (currentHorseId && amount > 0) {
+        // Assume the registered user's ID is available (e.g., via Firebase authentication)
+        const userId = 1; // Placeholder; replace with the actual user's ID.
+        fetch(`https://flato.q11.jvmhost.net/api/horses/${currentHorseId}/buy`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            userId: userId,
+            buyerName: "User" + userId, // Replace with the actual user's name.
+            amount: amount
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          alert('Покупка успешно оформлена.');
+          location.reload();
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Ошибка при оформлении покупки.');
+        });
+      }
+    });
+  </script>
 </body>
 </html>

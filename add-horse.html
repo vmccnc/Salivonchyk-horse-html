@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Добавить новую лошадь">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Horse - HorseFarm Admin</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+    /* Top header */
+    header.top-header {
+      background: #333;
+      color: #fff;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header.top-header .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    header.top-header nav ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+    header.top-header nav ul li {
+      margin-right: 15px;
+    }
+    header.top-header nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 12px;
+    }
+    header.top-header nav ul li a:hover,
+    header.top-header nav ul li a.active {
+      background: #444;
+      border-radius: 4px;
+    }
+    /* Form container */
+    .form-container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .form-container h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .form-container form {
+      display: flex;
+      flex-direction: column;
+    }
+    .form-container form label {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    .form-container form input, .form-container form textarea {
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .form-container form button {
+      margin-top: 20px;
+      padding: 10px;
+      background: #333;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .form-container form button:hover {
+      background: #444;
+    }
+  </style>
+   <link rel="stylesheet" href="css/header.css" />
+</head>
+<body>
+  <!-- Top Header -->
+  <header>
+    <div class="header-container">
+      <!-- Logo -->
+      <div class="logo">
+        <a href="index.html">HorseFarm</a>
+      </div>
+      <!-- Navigation -->
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="horses.html">Horses</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="purchase.html">Purchase horses</a></li>
+          <li><a href="admin.html">Admin</a></li>
+          <li><a href="login.html">LogIn/LogOut</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  
+  <!-- Form for adding a new horse -->
+  <div class="form-container">
+    <h1>Добавить новую лошадь</h1>
+    <form id="addHorseForm">
+      <label for="name">Название:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="yearOfBirth">Год рождения:</label>
+      <input type="number" id="yearOfBirth" name="yearOfBirth" required>
+
+      <label for="gender">Пол:</label>
+      <input type="text" id="gender" name="gender" required>
+
+      <label for="breed">Порода:</label>
+      <input type="text" id="breed" name="breed" required>
+
+      <label for="description">Описание:</label>
+      <textarea id="description" name="description" rows="4" required></textarea>
+
+      <label for="price">Цена (USD):</label>
+      <input type="number" id="price" name="price" required>
+
+      <label for="imageUrl">URL изображения:</label>
+      <input type="text" id="imageUrl" name="imageUrl" required>
+
+      <button type="submit">Сохранить</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('addHorseForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const horseData = {
+        name: document.getElementById('name').value.trim(),
+        yearOfBirth: parseInt(document.getElementById('yearOfBirth').value),
+        gender: document.getElementById('gender').value.trim(),
+        breed: document.getElementById('breed').value.trim(),
+        description: document.getElementById('description').value.trim(),
+        price: parseInt(document.getElementById('price').value),
+        imageUrl: document.getElementById('imageUrl').value.trim()
+        // The status will default to DRAFT on the server.
+      };
+
+      fetch('https://flato.q11.jvmhost.net/api/horses', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(horseData)
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Ошибка при создании лошади');
+        }
+        return response.json();
+      })
+      .then(createdHorse => {
+        alert(`Лошадь "${createdHorse.name}" успешно создана!`);
+        window.location.href = 'admin.html';
+      })
+      .catch(error => {
+        console.error(error);
+        alert('Ошибка при создании лошади');
+      });
+    });
+  </script>
+</body>
+</html>
