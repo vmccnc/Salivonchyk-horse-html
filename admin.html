@@ -8,42 +8,65 @@
   <link rel="stylesheet" href="admin.css">
 </head>
 <body>
+  <header>
+    <nav>
+      <div class="logo">HorseFarm Admin</div>
+      <ul>
+        <li><a href="index.html">На главную</a></li>
+        <li><a href="purchase.html">Покупка коней</a></li>
+        <li><a href="admin.html" class="active">Админка</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<header>
-  <nav>
-    <div class="logo">HorseFarm Admin</div>
-    <ul>
-      <li><a href="index.html">На главную</a></li>
-      <li><a href="purchase.html">Покупка коней</a></li>
-      <li><a href="admin.html" class="active">Админка</a></li>
-    </ul>
-  </nav>
-</header>
-
-<main>
-  <section class="admin-section">
+  <main>
     <h1>Управление лошадьми</h1>
-    <!-- Форма создания новой лошади -->
-    <div class="create-horse-form">
-      <h2>Добавить новую лошадь</h2>
-      <form id="create-horse">
-        <label for="horseName">Название лошади:</label>
-        <input type="text" id="horseName" name="horseName" required>
-        <button type="submit">Создать (draft)</button>
-      </form>
+    <div id="admin-horses-list">
+      <!-- All horses data will be displayed here -->
     </div>
+  </main>
 
-    <!-- Список всех лошадей (включая draft, for sale, purchased) -->
-    <div class="horses-list" id="admin-horses-list">
-      <!-- Генерируется скриптом -->
-    </div>
-  </section>
-</main>
+  <footer>
+    <p>&copy; 2025 HorseFarm. Админка.</p>
+  </footer>
 
-<footer>
-  <p>&copy; 2025 HorseFarm. Админка.</p>
-</footer>
+  <script>
+    // Fetch all horses from the backend API
+    fetch('http://localhost:8090/api/horses')
+      .then(response => response.json())
+      .then(horses => {
+        const list = document.getElementById('admin-horses-list');
+        horses.forEach(horse => {
+          const card = document.createElement('div');
+          card.classList.add('admin-horse-card');
+          let buyersInfo = "Покупателей нет.";
+          // In a real app, you might fetch buyer details in a separate API call.
+          if (horse.buyers && horse.buyers.length) {
+            buyersInfo = horse.buyers.map(b =>
+              `${b.buyerName}: $${b.amount}`).join('<br>');
+          }
+          card.innerHTML = `
+            <h2>${horse.name}</h2>
+            <p>Год рождения: ${horse.yearOfBirth}</p>
+            <p>Порода: ${horse.breed}</p>
+            <p>Цена: $${horse.price}</p>
+            <p>Статус: ${horse.status}</p>
+            <p><strong>Покупатели:</strong><br>${buyersInfo}</p>
+            <button onclick="publishHorse(${horse.id})">Опубликовать</button>
+          `;
+          list.appendChild(card);
+        });
+      })
+      .catch(err => console.error(err));
 
-<script src="admin.js"></script>
+    function publishHorse(horseId) {
+      fetch(`http://localhost:8090/api/horses/${horseId}/publish`, { method: 'PUT' })
+        .then(response => response.json())
+        .then(updatedHorse => {
+          alert(`Лошадь ${updatedHorse.name} опубликована для продажи.`);
+          location.reload();
+        });
+    }
+  </script>
 </body>
 </html>

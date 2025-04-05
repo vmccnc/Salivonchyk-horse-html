@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - HorseFarm</title>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+</head>
+<body>
+  <h1>Вход</h1>
+  <form id="login-form">
+    <input type="email" id="email" placeholder="Email" required><br>
+    <input type="password" id="password" placeholder="Password" required><br>
+    <button type="submit">Войти</button>
+  </form>
+
+  <script>
+    // TODO: Replace with your Firebase project configuration
+    const firebaseConfig = {
+  apiKey: "AIzaSyC2ey17cxMeFk9Qhv-a99qyawHZ0xP32_4",
+  authDomain: "anna-1996.firebaseapp.com",
+  projectId: "anna-1996",
+  storageBucket: "anna-1996.appspot.com",
+  messagingSenderId: "957521875132",
+  appId: "1:957521875132:web:77f46d802bfacc24a680b9",
+  measurementId: "G-S8FN10S8L1"
+};
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    document.getElementById('login-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      auth.signInWithEmailAndPassword(email, password)
+        .then(userCredential => {
+          alert("Вход выполнен успешно!");
+        })
+        .catch(error => {
+          alert(error.message);
+        });
+    });
+  </script>
+</body>
+</html>
