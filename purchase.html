@@ -5,116 +5,112 @@
   <meta name="description" content="Покупка коней">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Покупка коней</title>
+  <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Basic Styles */
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f9f9f9;
-      color: #333;
-    }
-    header {
-      background: #333;
-      color: #fff;
-      padding: 0.5rem 1rem;
-    }
-    header .logo {
-      font-weight: bold;
-      font-size: 1.5rem;
-      display: inline-block;
-      margin-right: 2rem;
-    }
-    nav ul {
-      list-style: none;
-      display: inline-block;
-      vertical-align: middle;
-    }
-    nav ul li {
-      display: inline-block;
-      margin-right: 1rem;
-    }
-    nav ul li a {
-      color: #fff;
-      text-decoration: none;
-      padding: 0.4rem 0.8rem;
-    }
-    nav ul li a:hover,
-    nav ul li a.active {
-      background: #444;
-      border-radius: 4px;
-    }
-    main {
-      padding: 1rem 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    footer {
-      background: #333;
-      color: #fff;
-      text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
-    }
-    /* ========== Horse Card Layout ========== */
+    /* --- General Card Layout --- */
     .horse-card {
       display: flex;
+      width: 100%;
       background: #fff;
       border-radius: 8px;
       padding: 1rem;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      align-items: flex-start;
     }
-    /* Left column: Photo */
-    .horse-photo {
+    /* Block 1: Photo Block */
+    .photo-block {
+      width: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+    }
+    .photo-block img {
       width: 200px;
       height: 200px;
-      flex-shrink: 0;
-      margin-right: 20px;
-    }
-    .horse-photo img {
-      width: 100%;
-      height: 100%;
       object-fit: cover;
       border-radius: 4px;
     }
-    /* Middle column: Horse description */
-    .horse-info {
-      width: 600px;
-      padding-right: 20px;
-      border-right: 1px solid #ccc;
+    /* Block 2: Description Block (30% of width) */
+    .description-block {
+      flex-basis: 30%;
+      padding: 0 10px;
     }
-    .horse-info h2 {
+    .description-block h2 {
       margin: 0 0 10px;
+      font-size: 16px;
     }
-    .horse-info p {
+    .description-block p {
       margin: 5px 0;
+      font-size: 14px;
     }
-    .horse-info button {
+    /* Buttons row inside description block */
+    .buttons-row {
       margin-top: 10px;
-      padding: 0.6rem 1.2rem;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+    .buttons-row button {
+      padding: 8px 12px;
       background: #333;
       color: #fff;
       border: none;
       border-radius: 4px;
       cursor: pointer;
     }
-    .horse-info button:hover {
-      background: #444;
+    .buttons-row button:disabled {
+      background: #aaa;
+      cursor: not-allowed;
     }
-    /* Right column: Buyer information */
-    .buyers-info {
-      width: 300px;
-      padding-left: 20px;
+    /* Block 3: Purpose Block */
+    .purpose-block {
+      flex: 1;
+      padding: 0 10px;
     }
-    .buyers-info h3 {
-      margin-top: 0;
+    .purpose-block h3 {
+      margin-bottom: 5px;
+      font-size: 16px;
     }
-    .buyers-info p {
+    .purpose-block p {
+      font-size: 14px;
       margin: 5px 0;
     }
-    /* Modal Styles */
+    /* Block 4: Buyers Block */
+    .buyers-block {
+      flex: 1;
+      padding: 0 10px;
+      background: #fafafa;
+      border: 1px dashed #ccc;
+      border-radius: 4px;
+    }
+    .buyers-block h3 {
+      margin-bottom: 5px;
+      font-size: 16px;
+    }
+    .buyers-block p {
+      font-size: 14px;
+      margin: 5px 0;
+    }
+    /* Block 5: Price Change Block */
+    .price-block {
+      flex: 1;
+      padding: 0 10px;
+    }
+    .price-block h3 {
+      margin-bottom: 5px;
+      font-size: 16px;
+    }
+    .price-block p {
+      font-size: 14px;
+      margin: 5px 0;
+      font-style: italic;
+      color: #555;
+    }
+    /* --- Modal Styling --- */
     .modal {
-      display: none; /* Hidden by default */
+      display: none;
       position: fixed;
       z-index: 9999;
       left: 0;
@@ -151,35 +147,39 @@
     .modal-content form label {
       font-weight: bold;
     }
-    .modal-content form input {
+    .modal-content form input[type="number"],
+    .modal-content form input[type="text"] {
       padding: 0.5rem;
       border: 1px solid #ccc;
       border-radius: 4px;
     }
-    .modal-content button {
-      align-self: flex-start;
+    .modal-content form button {
+      padding: 0.6rem 1.2rem;
       background: #333;
       color: #fff;
       border: none;
-      padding: 0.6rem 1.2rem;
       border-radius: 4px;
       cursor: pointer;
     }
-    .modal-content button:hover {
+    .modal-content form button:hover {
       background: #444;
     }
+    .modal-content .user-info {
+      font-size: 14px;
+    }
+    .modal-content .agreement {
+      font-size: 14px;
+    }
   </style>
-  <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/header.css" />
 </head>
 <body>
-  <!-- Header & Navigation -->
+  <!-- Common Header -->
   <header>
     <div class="header-container">
-      <!-- Logo -->
       <div class="logo">
         <a href="index.html">HorseFarm</a>
       </div>
-      <!-- Navigation -->
       <nav>
         <ul>
           <li><a href="index.html">Home</a></li>
@@ -187,72 +187,126 @@
           <li><a href="news.html">News</a></li>
           <li><a href="about.html">About Us</a></li>
           <li><a href="contact.html">Contact Us</a></li>
-          <li><a href="purchase.html">Purchase horses</a></li>
+          <li><a href="purchase.html" class="active">Purchase horses</a></li>
           <li><a href="admin.html">Admin</a></li>
           <li><a href="login.html">LogIn/LogOut</a></li>
         </ul>
       </nav>
     </div>
   </header>
+
   <main>
-    <h1>Лошади, выставленные на продажу</h1>
+    <h1>Horses Available for Purchase</h1>
     <div id="horses-container">
-      <!-- Horse cards will be inserted here from the server -->
+      <!-- Horse cards will be injected here from the server -->
     </div>
   </main>
+
   <footer>
-    <p>&copy; 2025 HorseFarm. Все права защищены.</p>
+    <p>&copy; 2025 HorseFarm. All rights reserved.</p>
   </footer>
 
-  <!-- Modal dialog for purchase -->
+  <!-- Modal for Purchase Requests -->
   <div id="modal" class="modal">
     <div class="modal-content">
       <span id="modal-close" class="close">&times;</span>
-      <h2>Купить часть лошади</h2>
+      <h2 id="modal-heading"></h2>
+      <div class="user-info" id="userInfo">
+        <!-- Logged-in user's info (ID and email) will appear here -->
+      </div>
       <form id="purchase-form">
-        <label for="buyerName">Ваше имя:</label>
-        <input type="text" id="buyerName" name="buyerName" required>
-        <label for="buyerAmount">Сумма покупки (USD):</label>
-        <input type="number" id="buyerAmount" name="buyerAmount" min="1" required>
-        <p>Нажимая кнопку, вы соглашаетесь на ежемесячную оплату 5% от стоимости лошади.</p>
-        <button type="submit">Отправить запрос</button>
+        <label for="buyerAmount">Сумма (USD):</label>
+        <input type="number" id="buyerAmount" name="buyerAmount" required>
+        <div class="agreement">
+          <input type="checkbox" id="agreeCheckbox" required>
+          <label for="agreeCheckbox">Согласен платить 5% от стоимости ежемесячно</label>
+        </div>
+        <button type="submit">Отправить заявку</button>
       </form>
     </div>
   </div>
 
   <script>
-    let currentHorseId = null;
+    // Simulated logged-in user; replace with actual Firebase auth logic.
+    const loggedInUser = {
+      id: 1,
+      email: "dmitry@example.com",
+      buyerName: "Dmitry"
+    };
 
-    // Fetch horses from the server and display those with status FOR_BUY
-    fetch('https://flato.q11.jvmhost.net/api/horses/with-buyers')
+    function updateUserInfo() {
+      const userInfoDiv = document.getElementById("userInfo");
+      if (loggedInUser && loggedInUser.email) {
+        userInfoDiv.innerHTML = `<p>ID: <span>${loggedInUser.id}</span></p>
+                                 <p>Email: <span>${loggedInUser.email}</span></p>`;
+      } else {
+        userInfoDiv.innerHTML = `<p>Необходимо авторизоваться</p>`;
+      }
+    }
+    updateUserInfo();
+
+    let currentHorseId = null;
+    let purchaseType = null; // "whole" or "part"
+
+    // Fetch horses from endpoint
+    fetch('https://flato.q11.jvmhost.net/api/horses/for_buy')
       .then(response => response.json())
       .then(data => {
+        const horses = data.listHorses || [];
         const container = document.getElementById('horses-container');
-        // Filter horses with status FOR_BUY; adjust filter if needed
-        const horses = data.filter(horse => horse.status === "FOR_BUY");
+        container.innerHTML = "";
         horses.forEach(horse => {
-          const totalPaid = horse.buyers.reduce((sum, b) => sum + b.amount, 0);
-          const remaining = horse.price - totalPaid;
-          // Create a card with three columns: photo, horse info, buyers info
+          // Calculate collected and remaining amounts
+          const totalPaid = horse.buyers.reduce((sum, b) => sum + parseInt(b.amount, 10), 0);
+          const remaining = Math.max(0, horse.price - totalPaid);
+          
+          // Determine which buttons to show:
+          // If no buyers yet, show both "Buy the whole horse" and "Buy part of a horse"
+          // Otherwise, show only "Buy part of a horse"
+          const buttonsHTML = (horse.buyers.length === 0)
+            ? `<div class="buttons-row" style="display:flex;justify-content:center;gap:10px;margin-top:10px;">
+                 <button onclick="openModal(${horse.id}, 'whole', ${horse.price})">Купить лошадь целиком</button>
+                 <button onclick="openModal(${horse.id}, 'part')" ${loggedInUser ? "" : "disabled"}>Купить часть лошади</button>
+               </div>`
+            : `<div class="buttons-row" style="display:flex;justify-content:center;gap:10px;margin-top:10px;">
+                 <button onclick="openModal(${horse.id}, 'part')" ${loggedInUser ? "" : "disabled"}>Купить часть лошади</button>
+               </div>`;
+
+          // Build the horse card with five blocks:
           const card = document.createElement('div');
           card.classList.add('horse-card');
           card.innerHTML = `
-            <div class="horse-photo">
+            <!-- Block 1: Photo -->
+            <div class="photo-block">
               <img src="${horse.imageUrl}" alt="${horse.name}">
             </div>
-            <div class="horse-info">
+            <!-- Block 2: Description (30% of total width) -->
+            <div class="description-block" style="flex-basis:30%;">
               <h2>${horse.name}</h2>
-              <p><strong>Год рождения:</strong> ${horse.yearOfBirth}</p>
-              <p><strong>Порода:</strong> ${horse.breed}</p>
-              <p><strong>Описание:</strong> ${horse.description}</p>
-              <p><strong>Цена:</strong> $${horse.price}</p>
-              <p><strong>Оплачено:</strong> $${totalPaid}</p>
-              <p><strong>Осталось:</strong> $${remaining}</p>
-              <button onclick="openModal(${horse.id})" ${remaining <= 0 ? 'disabled' : ''}>Купить часть лошади</button>
+              <p><strong>Year of Birth:</strong> ${horse.yearOfBirth}</p>
+              <p><strong>Breed:</strong> ${horse.breed}</p>
+              <p><strong>Description:</strong> ${horse.description}</p>
+              <p><strong>Price:</strong> $${horse.price}</p>
+              <p><strong>Collected:</strong> $${totalPaid}</p>
+              <p><strong>Remaining:</strong> $${remaining}</p>
+              ${buttonsHTML}
             </div>
-            <div class="buyers-info">
-              <h3>Покупатели:</h3>
-              ${horse.buyers.length > 0 ? horse.buyers.map(buyer => `<p>${buyer.buyerName}: $${buyer.amount}</p>`).join('') : '<p>Нет покупателей</p>'}
+            <!-- Block 3: Purpose of Purchase -->
+            <div class="purpose-block">
+              <h3>Purpose:</h3>
+              <p>${horse.purposeOfPurchase || "Не указано"}</p>
+            </div>
+            <!-- Block 4: Buyers Information -->
+            <div class="buyers-block">
+              <h3>Buyers:</h3>
+              ${horse.buyers.length > 0 
+                ? horse.buyers.map(buyer => `<p>${buyer.buyerName}: $${buyer.amount}</p>`).join('')
+                : '<p>Нет покупателей</p>'}
+            </div>
+            <!-- Block 5: Price Change Information -->
+            <div class="price-block">
+              <h3>Price Info:</h3>
+              <p>${horse.textAboutPrice}</p>
             </div>
           `;
           container.appendChild(card);
@@ -264,12 +318,31 @@
     const modal = document.getElementById('modal');
     const modalClose = document.getElementById('modal-close');
     const purchaseForm = document.getElementById('purchase-form');
+    const modalHeading = document.getElementById('modal-heading');
 
-    function openModal(horseId) {
+    function openModal(horseId, type, wholeAmount = null) {
+      if (!loggedInUser) {
+        alert("Вы должны быть авторизованы для покупки.");
+        return;
+      }
       currentHorseId = horseId;
+      purchaseType = type;
       modal.style.display = 'block';
       purchaseForm.reset();
+      updateUserInfo();
+      const buyerAmountInput = document.getElementById('buyerAmount');
+      // Set modal heading and input behavior based on type
+      if (type === 'whole') {
+        document.getElementById('modal-heading').textContent = "Купить лошадь целиком";
+        buyerAmountInput.value = wholeAmount;
+        buyerAmountInput.disabled = true;
+      } else {
+        document.getElementById('modal-heading').textContent = "Купить часть лошади";
+        buyerAmountInput.value = "";
+        buyerAmountInput.disabled = false;
+      }
     }
+
     modalClose.onclick = function() {
       modal.style.display = 'none';
     }
@@ -281,32 +354,37 @@
 
     purchaseForm.addEventListener('submit', function(e) {
       e.preventDefault();
-      const buyerName = document.getElementById('buyerName').value.trim();
-      const buyerAmount = parseFloat(document.getElementById('buyerAmount').value);
-      if (buyerName && buyerAmount > 0 && currentHorseId != null) {
-        // Placeholder user ID; replace with actual authenticated user ID as needed.
-        const userId = 1;
-        fetch(`https://flato.q11.jvmhost.net/api/horses/${currentHorseId}/buy`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            userId: userId,
-            buyerName: buyerName,
-            amount: buyerAmount
-          })
-        })
-        .then(response => response.json())
-        .then(data => {
-          alert('Покупка успешно оформлена.');
-          location.reload();
-        })
-        .catch(error => {
-          console.error('Ошибка:', error);
-          alert('Ошибка при оформлении покупки.');
-        });
+      let amount;
+      if (purchaseType === 'whole') {
+        amount = parseInt(document.getElementById('buyerAmount').value, 10);
+      } else {
+        amount = parseInt(document.getElementById('buyerAmount').value, 10);
+        // Validate for part purchase: must be >= minPayment and a multiple of 100.
+        // For demonstration, using fixed minPayment 100; replace with actual horse.minPayment if available.
+        const minPayment = 100;
+        if (amount < minPayment || amount % 100 !== 0) {
+          alert("Сумма должна быть не меньше минимального платежа и кратна 100.");
+          return;
+        }
       }
+      fetch(`https://flato.q11.jvmhost.net/api/horses/${currentHorseId}/buy`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: loggedInUser.id,
+          buyerName: loggedInUser.buyerName,
+          amount: amount
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert('Покупка успешно оформлена.');
+        location.reload();
+      })
+      .catch(error => {
+        console.error('Ошибка:', error);
+        alert('Ошибка при оформлении покупки.');
+      });
     });
   </script>
 </body>

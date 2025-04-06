@@ -207,3 +207,27 @@ function updateHorsePurchaseStatus(horse) {
     horse.status = 'purchased'; // помечаем как купленную
   }
 }
+
+
+// Ensure that the fields exist and are numbers (using parseInt as needed)
+const basePrice = parseInt(horse.price) || 0;
+const price5 = parseInt(horse.price5) || basePrice;
+const price10 = parseInt(horse.price10) || basePrice;
+const price15 = parseInt(horse.price15) || basePrice;
+const price20 = parseInt(horse.price20) || basePrice;
+
+let applicablePrice = basePrice;
+const buyerCount = horse.buyers ? horse.buyers.length : 0;
+
+if (buyerCount > 0 && buyerCount <= 5) {
+  applicablePrice = price5;
+} else if (buyerCount > 5 && buyerCount <= 10) {
+  applicablePrice = price10;
+} else if (buyerCount > 10 && buyerCount <= 15) {
+  applicablePrice = price15;
+} else if (buyerCount > 15 && buyerCount <= 20) {
+  applicablePrice = price20;
+}
+
+const totalPaid = horse.buyers ? horse.buyers.reduce((sum, b) => sum + parseInt(b.amount), 0) : 0;
+const remaining = Math.max(0, applicablePrice - totalPaid);

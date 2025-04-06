@@ -5,46 +5,45 @@
   <meta name="description" content="Добавить новую лошадь">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Add Horse - HorseFarm Admin</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="css/header.css" />
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f9f9f9;
-      margin: 0;
-      padding: 0;
-    }
-    /* Top header */
-    header.top-header {
-      background: #333;
-      color: #fff;
-      padding: 10px 20px;
+    /* Common header styles */
+    .header-container {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
+      background: #333;
+      padding: 10px 20px;
     }
-    header.top-header .logo {
+    .header-container .logo a {
+      color: #fff;
+      text-decoration: none;
       font-size: 24px;
       font-weight: bold;
     }
-    header.top-header nav ul {
+    .header-container nav ul {
       list-style: none;
       display: flex;
       margin: 0;
       padding: 0;
     }
-    header.top-header nav ul li {
+    .header-container nav ul li {
       margin-right: 15px;
     }
-    header.top-header nav ul li a {
+    .header-container nav ul li a {
       color: #fff;
       text-decoration: none;
       padding: 8px 12px;
+      display: block;
     }
-    header.top-header nav ul li a:hover,
-    header.top-header nav ul li a.active {
+    .header-container nav ul li a:hover,
+    .header-container nav ul li a.active {
       background: #444;
       border-radius: 4px;
     }
-    /* Form container */
+
+    /* Form container styling */
     .form-container {
       max-width: 600px;
       margin: 40px auto;
@@ -57,21 +56,25 @@
       text-align: center;
       margin-bottom: 20px;
     }
-    .form-container form {
+    /* Single column layout */
+    .form-group {
       display: flex;
       flex-direction: column;
+      margin-bottom: 15px;
     }
-    .form-container form label {
-      margin-top: 10px;
+    .form-group label {
+      margin-bottom: 5px;
       font-weight: bold;
     }
-    .form-container form input, .form-container form textarea {
+    .form-group input,
+    .form-group textarea {
       padding: 8px;
-      margin-top: 5px;
       border: 1px solid #ccc;
       border-radius: 4px;
+      font-size: 14px;
     }
-    .form-container form button {
+    /* Save button styling */
+    .form-container button {
       margin-top: 20px;
       padding: 10px;
       background: #333;
@@ -79,22 +82,23 @@
       border: none;
       border-radius: 4px;
       cursor: pointer;
+      width: 200px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
-    .form-container form button:hover {
+    .form-container button:hover {
       background: #444;
     }
   </style>
-   <link rel="stylesheet" href="css/header.css" />
 </head>
 <body>
-  <!-- Top Header -->
+  <!-- Common Header -->
   <header>
     <div class="header-container">
-      <!-- Logo -->
       <div class="logo">
         <a href="index.html">HorseFarm</a>
       </div>
-      <!-- Navigation -->
       <nav>
         <ul>
           <li><a href="index.html">Home</a></li>
@@ -109,32 +113,59 @@
       </nav>
     </div>
   </header>
-  
-  <!-- Form for adding a new horse -->
+
+  <!-- Form Container -->
   <div class="form-container">
     <h1>Добавить новую лошадь</h1>
     <form id="addHorseForm">
-      <label for="name">Название:</label>
-      <input type="text" id="name" name="name" required>
-
-      <label for="yearOfBirth">Год рождения:</label>
-      <input type="number" id="yearOfBirth" name="yearOfBirth" required>
-
-      <label for="gender">Пол:</label>
-      <input type="text" id="gender" name="gender" required>
-
-      <label for="breed">Порода:</label>
-      <input type="text" id="breed" name="breed" required>
-
-      <label for="description">Описание:</label>
-      <textarea id="description" name="description" rows="4" required></textarea>
-
-      <label for="price">Цена (USD):</label>
-      <input type="number" id="price" name="price" required>
-
-      <label for="imageUrl">URL изображения:</label>
-      <input type="text" id="imageUrl" name="imageUrl" required>
-
+      <div class="form-group">
+        <label for="name">Название</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="yearOfBirth">Год рождения</label>
+        <input type="number" id="yearOfBirth" name="yearOfBirth" required>
+      </div>
+      <div class="form-group">
+        <label for="breed">Порода</label>
+        <input type="text" id="breed" name="breed" required>
+      </div>
+      <div class="form-group">
+        <label for="description">Описание</label>
+        <textarea id="description" name="description" rows="4" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="purposeOfPurchase">Цель покупки</label>
+        <textarea id="purposeOfPurchase" name="purposeOfPurchase" rows="3" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="price1">Цена для одного покупателя (price1)</label>
+        <input type="number" id="price1" name="price1" required>
+      </div>
+      <div class="form-group">
+        <label for="price5">Цена для до 5 покупателей (price5)</label>
+        <input type="number" id="price5" name="price5" required>
+      </div>
+      <div class="form-group">
+        <label for="price10">Цена для до 10 покупателей (price10)</label>
+        <input type="number" id="price10" name="price10" required>
+      </div>
+      <div class="form-group">
+        <label for="price15">Цена для до 15 покупателей (price15)</label>
+        <input type="number" id="price15" name="price15" required>
+      </div>
+      <div class="form-group">
+        <label for="price20">Цена для до 20 покупателей (price20)</label>
+        <input type="number" id="price20" name="price20" required>
+      </div>
+      <div class="form-group">
+        <label for="minPayment">Минимальный платеж</label>
+        <input type="number" id="minPayment" name="minPayment" required>
+      </div>
+      <div class="form-group">
+        <label for="imageUrl">URL изображения</label>
+        <input type="text" id="imageUrl" name="imageUrl" required>
+      </div>
       <button type="submit">Сохранить</button>
     </form>
   </div>
@@ -145,25 +176,25 @@
       const horseData = {
         name: document.getElementById('name').value.trim(),
         yearOfBirth: parseInt(document.getElementById('yearOfBirth').value),
-        gender: document.getElementById('gender').value.trim(),
         breed: document.getElementById('breed').value.trim(),
         description: document.getElementById('description').value.trim(),
-        price: parseInt(document.getElementById('price').value),
+        purposeOfPurchase: document.getElementById('purposeOfPurchase').value.trim(),
+        price: parseInt(document.getElementById('price1').value),  // Price for one buyer
+        price5: parseInt(document.getElementById('price5').value),
+        price10: parseInt(document.getElementById('price10').value),
+        price15: parseInt(document.getElementById('price15').value),
+        price20: parseInt(document.getElementById('price20').value),
+        minPayment: parseInt(document.getElementById('minPayment').value),
         imageUrl: document.getElementById('imageUrl').value.trim()
-        // The status will default to DRAFT on the server.
       };
 
       fetch('https://flato.q11.jvmhost.net/api/horses', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(horseData)
       })
       .then(response => {
-        if (!response.ok) {
-          throw new Error('Ошибка при создании лошади');
-        }
+        if (!response.ok) throw new Error('Ошибка при создании лошади');
         return response.json();
       })
       .then(createdHorse => {
