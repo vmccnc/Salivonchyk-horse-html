@@ -167,6 +167,7 @@
       </select>
     </div>
     <button id="addHorseBtn">Add horse</button>
+    <button id="addHorseBtn22">Buyers</button>
   </section>
   
   <!-- Main Container for Horse Cards -->
@@ -270,6 +271,12 @@
     document.getElementById("addHorseBtn").addEventListener("click", () => {
       window.location.href = "add-horse.html";
     });
+
+        // Add event listener for "Add horse" button.
+        document.getElementById("addHorseBtn22").addEventListener("click", () => {
+      window.location.href = "admin-buyers.html";
+    });
+
 
     // Initial render.
     renderHorses();

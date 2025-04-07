@@ -42,10 +42,10 @@
       background: #444;
       border-radius: 4px;
     }
-
+    
     /* Form container styling */
     .form-container {
-      max-width: 600px;
+      max-width: 1200px;
       margin: 40px auto;
       background: #fff;
       padding: 20px;
@@ -67,7 +67,8 @@
       font-weight: bold;
     }
     .form-group input,
-    .form-group textarea {
+    .form-group textarea,
+    .form-group select {
       padding: 8px;
       border: 1px solid #ccc;
       border-radius: 4px;
@@ -118,6 +119,7 @@
   <div class="form-container">
     <h1>Добавить новую лошадь</h1>
     <form id="addHorseForm">
+      <!-- All fields in a single vertical column -->
       <div class="form-group">
         <label for="name">Название</label>
         <input type="text" id="name" name="name" required>
@@ -127,16 +129,29 @@
         <input type="number" id="yearOfBirth" name="yearOfBirth" required>
       </div>
       <div class="form-group">
+        <label for="gender">Пол</label>
+        <select id="gender" name="gender" required>
+          <option value="">Выберите пол</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
         <label for="breed">Порода</label>
         <input type="text" id="breed" name="breed" required>
       </div>
+
       <div class="form-group">
         <label for="description">Описание</label>
         <textarea id="description" name="description" rows="4" required></textarea>
       </div>
       <div class="form-group">
         <label for="purposeOfPurchase">Цель покупки</label>
-        <textarea id="purposeOfPurchase" name="purposeOfPurchase" rows="3" required></textarea>
+        <!-- This drop-down will be populated from the PurposeOfPurchase endpoint -->
+        <select id="purposeOfPurchase" name="purposeOfPurchase" required>
+          <option value="">Выберите цель покупки</option>
+        </select>
       </div>
       <div class="form-group">
         <label for="price1">Цена для одного покупателя (price1)</label>
@@ -171,14 +186,30 @@
   </div>
 
   <script>
-    document.getElementById('addHorseForm').addEventListener('submit', function(e) {
+    // Populate the "Цель покупки" drop-down from the backend
+    fetch('https://flato.q11.jvmhost.net/api/horses/purposeOfPurchase')
+      .then(response => response.json())
+      .then(data => {
+        const select = document.getElementById('purposeOfPurchase');
+        // Assume data is an array of PurposeOfPurchase objects
+        data.forEach(item => {
+          const option = document.createElement('option');
+          option.value = item.purpose;  // We'll send the purpose text as the value
+          option.textContent = item.purpose;
+          select.appendChild(option);
+        });
+      })
+      .catch(error => console.error('Error fetching purpose data:', error));
+
+    document.getElementById('addHorseForm').addEventListener('submit', function(e) {  
       e.preventDefault();
       const horseData = {
         name: document.getElementById('name').value.trim(),
         yearOfBirth: parseInt(document.getElementById('yearOfBirth').value),
+        gender: document.getElementById('gender').value.trim(),
         breed: document.getElementById('breed').value.trim(),
         description: document.getElementById('description').value.trim(),
-        purposeOfPurchase: document.getElementById('purposeOfPurchase').value.trim(),
+        purposeOfPurchase: document.getElementById('purposeOfPurchase').value, // selected purpose text
         price: parseInt(document.getElementById('price1').value),  // Price for one buyer
         price5: parseInt(document.getElementById('price5').value),
         price10: parseInt(document.getElementById('price10').value),
@@ -206,6 +237,23 @@
         alert('Ошибка при создании лошади');
       });
     });
+
+    const horseData = {
+  name: document.getElementById('name').value.trim(),
+  yearOfBirth: parseInt(document.getElementById('yearOfBirth').value),
+  gender: document.getElementById('gender').value, // Added field
+  breed: document.getElementById('breed').value.trim(),
+  description: document.getElementById('description').value.trim(),
+  purposeOfPurchase: document.getElementById('purposeOfPurchase').value.trim(),
+  price: parseInt(document.getElementById('price1').value),
+  price5: parseInt(document.getElementById('price5').value),
+  price10: parseInt(document.getElementById('price10').value),
+  price15: parseInt(document.getElementById('price15').value),
+  price20: parseInt(document.getElementById('price20').value),
+  minPayment: parseInt(document.getElementById('minPayment').value),
+  imageUrl: document.getElementById('imageUrl').value.trim()
+};
+
   </script>
 </body>
 </html>

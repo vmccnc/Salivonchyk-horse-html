@@ -252,7 +252,7 @@
     fetch('https://flato.q11.jvmhost.net/api/horses/for_buy')
       .then(response => response.json())
       .then(data => {
-        const horses = data.listHorses || [];
+        const horses = data;;
         const container = document.getElementById('horses-container');
         container.innerHTML = "";
         horses.forEach(horse => {
