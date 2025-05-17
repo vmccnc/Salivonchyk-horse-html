@@ -4,28 +4,28 @@
   <meta charset="UTF-8" />
   <meta name="description" content="Horse breeding and performance activities" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Horse Farm - Home</title>
-  <link rel="stylesheet" href="css/header.css" />
+  <title>Horse Farm - Home</title> 
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
   <!-- Header & Navigation -->
-  <header>
+ <header>
     <div class="header-container">
       <!-- Logo -->
       <div class="logo">
-        <a href="index.html">HorseFarm</a>
+        <a href="index.html">Salivonchyk's Farm</a>
       </div>
       <!-- Navigation -->
       <nav>
         <ul>
           <li><a href="index.html">Home</a></li>
-          <li><a href="horses.html">Horses</a></li>
-          <li><a href="news.html">News</a></li>
+          <li><a href="horses.html">Horses on farm</a></li>
+          <li><a href="purchase.html">Horses for sale</a></li>
           <li><a href="about.html">About Us</a></li>
+          <li><a href="news.html">News</a></li>
+
           <li><a href="contact.html">Contact Us</a></li>
-          <li><a href="purchase.html">Purchase horses</a></li>
           <li><a href="admin.html">Admin</a></li>
           <li><a href="login.html">LogIn/LogOut</a></li>
         </ul>
@@ -41,19 +41,21 @@
 
   <!-- Highlights of recent news or upcoming events -->
   <section class="highlights">
-    <h2>Latest News & Events</h2>
-    <div class="highlight-cards">
-      <article>
-        <h3>New Champion Born</h3>
-        <p>We are thrilled to announce the birth of our new colt, destined to become a champion!</p>
-        <a href="news.html">Read More</a>
-      </article>
-      <article>
-        <h3>Upcoming Race</h3>
-        <p>Join us next month for the annual City Derby. Our horses are ready to shine!</p>
-        <a href="news.html">View Details</a>
-      </article>
-    </div>
+     
+   
+  </section>
+
+  <!-- our horses -->
+  <section class="our-horses">  
+    <h2>Our Horses</h2>
+    <p>Discover our champions and future stars. Each horse is bred with care and passion.</p>
+    <a href="horses.html" class="btn">View Horses</a>
+  </section>
+    
+  <!-- Highlights of recent news or upcoming events -->
+  <section class="highlights">
+     
+   
   </section>
 
   <!-- About Us snippet -->
@@ -64,46 +66,36 @@
     <a href="about.html" class="btn">Learn More</a>
   </section>
 
-  <!-- Quick Links to main sections -->
-  <section class="quick-links">
-    <h2>Explore</h2>
-    <div class="cards">
-      <div class="card">
-        <h3>Horses</h3>
-        <p>Meet our stable of champions and future stars.</p>
-        <a href="horses.html" class="btn">View Horses</a>
-      </div>
-      <div class="card">
-        <h3>News</h3>
-        <p>Stay updated with the latest news and events.</p>
-        <a href="news.html" class="btn">Go to News</a>
-      </div>
-      <div class="card">
-        <h3>Contact Us</h3>
-        <p>Have questions or want to visit? Get in touch!</p>
-        <a href="contact.html" class="btn">Contact</a>
-      </div>
-      <div class="card">
-        <h3>Покупка коней</h3>
-        <p>Присоединяйтесь к со-владению нашими лошадьми.</p>
-        <a href="purchase.html" class="btn">Узнать больше</a>
-      </div>
-      <div class="card">
-        <h3>Админка</h3>
-        <p>Управляйте лошадьми и следите за покупателями.</p>
-        <a href="admin.html" class="btn">Перейти</a>
-      </div>
-    </div>
-  </section>
-
+  
   <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 HorseFarm. All rights reserved.</p>
-  </footer>
+<footer>
+  <div class="footer-content">
+    <p>&copy; 2025 HorseFarm. Все права защищены.</p>
+
+    <div class="footer-media">
+      <h4>MEDIA:</h4>
+      <ul>
+        <li><a href="#" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="#" target="_blank" rel="noopener">Facebook</a></li>
+        <li><a href="#" target="_blank" rel="noopener">YouTube</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-contact">
+      <p><strong>Email:</strong> <a href="mailto:tsalivonchyk@gmail.com">tsalivonchyk@gmail.com</a></p>
+      <p><strong>Phone:</strong> <a href="tel:+48790779222">+48 790 779 222</a></p>
+      <p><strong>Address:</strong><br>
+         Europe, Poland,<br>
+         56 - 416 Twardogóra Brzezina, 3
+      </p>
+    </div>
+  </div>
+</footer>
+
 
  
 
-  <script src="js/header.js"></script>
+  <script src="scripts.js"></script>
   <script>
     // Your Firebase configuration
     const firebaseConfig = {

@@ -12,50 +12,49 @@ body {
   line-height: 1.5;
 }
 
-/* Header */
-header {
-  background: #c30f0f;
-  color: #fff;
-  padding: 0.5rem 1rem;
-}
 
-header .logo {
-  font-weight: bold;
-  font-size: 1.5rem;
-  display: inline-block;
-  margin-right: 2rem;
-}
+/* header.css */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 10px 20px;
+  }
+  
+  .header-container .logo a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .header-container nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  .header-container nav ul li {
+    margin-right: 15px;
+  }
+  
+  .header-container nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 12px;
+    display: block;
+  }
+  
+  .header-container nav ul li a:hover,
+  .header-container nav ul li a.active {
+    background-color: #444;
+    border-radius: 4px;
+  }
+  
 
-nav ul {
-  list-style: none;
-  display: inline-block;
-  vertical-align: middle;
-}
-
-nav ul li {
-  display: inline-block;
-  margin-right: 1rem;
-}
-
-nav ul li a {
-  color: #fff;
-  text-decoration: none;
-  padding: 0.4rem 0.8rem;
-}
-
-nav ul li a:hover, 
-nav ul li a.active {
-  background: #444;
-  border-radius: 4px;
-}
-
-/* Hero Section */
-.hero {
-  background: url("https://via.placeholder.com/1200x400") center/cover no-repeat;
-  color: #fff;
-  padding: 4rem 2rem;
-  text-align: center;
-}
+ 
 
 /* Highlights */
 .highlights {
@@ -82,9 +81,18 @@ nav ul li a.active {
 
 /* About snippet */
 .about-snippet {
-  padding: 2rem;
-  background: #e9e9e9;
+  height: 100vh; /* Full viewport height */
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/anna-1996.appspot.com/o/images_horses%2FIMG-20250421-WA0061.jpg?alt=media&token=baf6bc08-6df8-408c-bfbe-a59400310d89');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
 .about-snippet a.btn {
@@ -96,6 +104,91 @@ nav ul li a.active {
   text-decoration: none;
   border-radius: 4px;
 }
+
+
+.our-horses {
+  height: 100vh; /* Full viewport height */
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/anna-1996.appspot.com/o/images_horses%2FIMG-20250421-WA0060.jpg?alt=media&token=b3b4476f-8da4-4bfe-bb7b-9b95cecf5a03');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.our-horses h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.our-horses p {
+  font-size: 1.25rem;
+  max-width: 700px;
+}
+
+.our-horses a.btn {
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  background: #000;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+
+
+.farm-gallery {
+  width: 100vw; /* Full viewport width */
+  height: 100vh; /* Full screen height */
+  padding: 2rem;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.farm-gallery h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.farm-images {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+  flex-wrap: nowrap;
+}
+
+.farm-images img {
+  width: 30%;
+  object-fit: cover;
+  height: 60vh;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+@media (max-width: 768px) {
+  .farm-images {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .farm-images img {
+    width: 90%;
+    height: auto;
+  }
+}
+
+
 
 /* Quick Links Cards */
 .quick-links {
@@ -190,7 +283,7 @@ footer {
 }
 
 /* About Page */
-.about-section, .team-section, .farm-gallery {
+.about-section, .team-section {
   padding: 2rem;
   background: #fff;
   margin-bottom: 1rem;
@@ -211,6 +304,7 @@ footer {
 .contact-info {
   padding: 2rem;
   background: #fff;
+   align-items: center;
 }
 
 .feedback-form {
@@ -246,7 +340,7 @@ footer {
 
 .map-container iframe {
   width: 100%;
-  max-width: 600px;
+  max-width: 900px;
   height: 450px;
 }
 
@@ -266,15 +360,21 @@ footer {
   }
 }
 
+ 
 
 /* Hero section styling */
 .hero {
-  background-image: url('https://firebasestorage.googleapis.com/v0/b/aspro-flowers.appspot.com/o/images%2Fhorses%2FFlux_Schnell_A_serene_horse_farm_scene_set_in_a_lush_green_mea_2.jpeg?alt=media&token=6ee39885-0f2f-4964-a6c4-1c2a0619a158');
+  height: 100vh; /* Full height of the viewport */
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/anna-1996.appspot.com/o/images_horses%2FIMG-20250421-WA0017.jpg?alt=media&token=82a7bc7a-d6f8-4359-945b-1fca03388824');
   background-size: cover;
   background-position: center;
   color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  padding: 100px 20px;
+  padding: 20px;
 }
 
 .hero h1 {
@@ -288,3 +388,48 @@ footer {
   margin: 0 auto;
 }
 
+
+/*footer layout **/
+footer {
+  background: #333;
+  color: #fff;
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.footer-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.footer-media,
+.footer-contact {
+  margin-top: 1rem;
+}
+
+.footer-media ul {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.footer-media ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer-media ul li a:hover {
+  text-decoration: underline;
+}
+
+.footer-contact a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer-contact a:hover {
+  text-decoration: underline;
+}

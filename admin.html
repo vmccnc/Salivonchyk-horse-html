@@ -4,140 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin - HorseFarm</title>
-  <style>
-    /* ========== Common Header Styles ========== */
-    .header-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #333;
-      padding: 10px 20px;
-    }
-    .header-container .logo a {
-      color: #fff;
-      text-decoration: none;
-      font-size: 24px;
-      font-weight: bold;
-    }
-    .header-container nav ul {
-      list-style: none;
-      display: flex;
-      margin: 0;
-      padding: 0;
-    }
-    .header-container nav ul li {
-      margin-right: 15px;
-    }
-    .header-container nav ul li a {
-      color: #fff;
-      text-decoration: none;
-      padding: 8px 12px;
-      display: block;
-    }
-    .header-container nav ul li a:hover,
-    .header-container nav ul li a.active {
-      background: #444;
-      border-radius: 4px;
-    }
-    
-    /* ========== Filter Section ========== */
-    .filter-section {
-      background: #eee;
-      padding: 10px 20px;
-      margin: 10px 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .filter-section .left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .filter-section label {
-      font-weight: bold;
-    }
-    .filter-section select {
-      padding: 5px 10px;
-      font-size: 16px;
-    }
-    .filter-section button {
-      padding: 5px 10px;
-      font-size: 16px;
-      background: #333;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .filter-section button:hover {
-      background: #444;
-    }
-    
-    /* ========== Horse Card Container ========== */
-    .horse-container {
-      max-width: 1200px;
-      margin: 20px auto;
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    
-    /* ========== Horse Card Styles ========== */
-    .horse-card {
-      display: flex;
-      background: #fff;
-      padding: 10px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    .horse-card img {
-      width: 200px;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 4px;
-      margin-right: 20px;
-    }
-    .horse-details {
-      flex: 1;
-    }
-    .horse-details h2 {
-      margin: 0 0 10px;
-    }
-    .horse-details p {
-      margin: 5px 0;
-    }
-    .buyers-info {
-      margin-top: 10px;
-      padding: 5px;
-      background: #fafafa;
-      border: 1px dashed #ccc;
-      border-radius: 4px;
-    }
-    .horse-details select {
-      margin-top: 10px;
-      padding: 5px;
-      font-size: 16px;
-    }
-    
-    /* ========== Footer ========== */
-    footer {
-      background: #333;
-      color: #fff;
-      text-align: center;
-      padding: 10px;
-      margin-top: 20px;
-    }
-  </style>
-   <link rel="stylesheet" href="css/header.css" />
+  
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <!-- Common Header -->
   <header>
     <div class="header-container">
       <div class="logo">
-        <a href="index.html">HorseFarm</a>
+        <a href="index.html">Salivonchyk's Farm</a>
       </div>
       <nav>
         <ul>
@@ -178,9 +53,30 @@
   </main>
   
   <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 HorseFarm. All rights reserved.</p>
-  </footer>
+<footer>
+  <div class="footer-content">
+    <p>&copy; 2025 HorseFarm. Все права защищены.</p>
+
+    <div class="footer-media">
+      <h4>MEDIA:</h4>
+      <ul>
+        <li><a href="#" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="#" target="_blank" rel="noopener">Facebook</a></li>
+        <li><a href="#" target="_blank" rel="noopener">YouTube</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-contact">
+      <p><strong>Email:</strong> <a href="mailto:tsalivonchyk@gmail.com">tsalivonchyk@gmail.com</a></p>
+      <p><strong>Phone:</strong> <a href="tel:+48790779222">+48 790 779 222</a></p>
+      <p><strong>Address:</strong><br>
+         Europe, Poland,<br>
+         56 - 416 Twardogóra Brzezina, 3
+      </p>
+    </div>
+  </div>
+</footer>
+
   
   <script>
     // URL for fetching horses (includes buyer information)
