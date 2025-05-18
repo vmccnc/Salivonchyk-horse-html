@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="Horse farm news detail" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Horse Farm - News Detail</title>
+  <link rel="stylesheet" href="styles.css" />
+  
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <a href="index.html">Salivonchyk's Farm</a>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="horses.html">Horses on farm</a></li>
+          <li><a href="purchase.html">Horses for sale</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="login.html">LogIn/LogOut</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- News Detail Section -->
+  <main>
+    <section class="news-detail" id="news-detail">
+      <p>Loading news...</p>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 HorseFarm. Все права защищены.</p>
+      <div class="footer-media">
+        <h4>MEDIA:</h4>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">YouTube</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <p><strong>Email:</strong> <a href="mailto:tsalivonchyk@gmail.com">tsalivonchyk@gmail.com</a></p>
+        <p><strong>Phone:</strong> <a href="tel:+48790779222">+48 790 779 222</a></p>
+        <p><strong>Address:</strong><br> Europe, Poland,<br> 56 - 416 Twardogóra Brzezina, 3</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const detailContainer = document.getElementById('news-detail');
+
+      // Get ID from query string
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id') || '1'; // fallback to id=1 if not provided
+
+      fetch(`https://flato.q11.jvmhost.net/api/horses/news/${id}`)
+        .then(res => res.json())
+        .then(news => {
+          const mediaHTML = news.urlVideo && news.urlVideo.trim()
+            ? `<iframe src="${news.urlVideo.replace('watch?v=', 'embed/')}" frameborder="0" allowfullscreen></iframe>`
+            : (news.urlImage
+                ? `<img src="${news.urlImage}" alt="${news.title}" />`
+                : '');
+
+          detailContainer.innerHTML = `
+            <h1>${news.title}</h1>
+            <p class="date">${new Date(news.publicationDate).toLocaleDateString('en-GB')}</p>
+            ${mediaHTML}
+            <div class="content">
+              <p>${news.content}</p>
+            </div>
+          `;
+        })
+        .catch(err => {
+          console.error(err);
+          detailContainer.innerHTML = '<p>Error loading news item.</p>';
+        });
+    });
+  </script>
+</body>
+</html>

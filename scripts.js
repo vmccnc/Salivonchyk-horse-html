@@ -151,3 +151,82 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+
+
+
+
+// for news. htmls
+
+ 
+  document.addEventListener('DOMContentLoaded', () => {
+    const newsList = document.getElementById('news-list');
+    const newsDateInput = document.getElementById('news-date');
+    const newsSortSelect = document.getElementById('news-sort');
+    let allNews = [];
+
+    // Fetch news data from the API
+    fetch('https://flato.q11.jvmhost.net/api/horses/news')
+      .then(res => res.json())
+      .then(data => {
+        allNews = data;
+        renderNews(allNews);
+      })
+      .catch(err => {
+        newsList.innerHTML = '<p>Error loading news.</p>';
+        console.error(err);
+      });
+
+    // Render news items
+    function renderNews(newsItems) {
+      newsList.innerHTML = ''; // Clear existing
+      newsItems.forEach(item => {
+        const article = document.createElement('article');
+        article.className = 'news-item';
+        article.dataset.date = item.publicationDate;
+
+        const media = item.urlVideo && item.urlVideo.trim()
+          ? `<iframe width="100%" height="315" src="${item.urlVideo.replace('watch?v=', 'embed/')}" 
+                     frameborder="0" allowfullscreen></iframe>`
+          : `<img src="${item.urlImage}" alt="${item.title}" style="width: 100%; max-height: 300px; object-fit: cover; border-radius: 8px;" />`;
+
+        article.innerHTML = `
+          <h2>${item.title}</h2>
+          <p class="date">${formatDate(item.publicationDate)}</p>
+          ${media}
+          <p class="summary">${item.brief}</p>
+          <a href="news-details.html?id=${item.id}">Read More</a>
+        `;
+        newsList.appendChild(article);
+      });
+    }
+
+    // Filter and sort logic
+    function filterAndSortNews() {
+      const selectedMonth = newsDateInput.value;
+      const sortOrder = newsSortSelect.value;
+
+      let filtered = [...allNews];
+
+      if (selectedMonth) {
+        filtered = filtered.filter(item => item.publicationDate.startsWith(selectedMonth));
+      }
+
+      filtered.sort((a, b) => {
+        const timeA = new Date(a.publicationDate).getTime();
+        const timeB = new Date(b.publicationDate).getTime();
+        return sortOrder === 'asc' ? timeA - timeB : timeB - timeA;
+      });
+
+      renderNews(filtered);
+    }
+
+    newsDateInput.addEventListener('change', filterAndSortNews);
+    newsSortSelect.addEventListener('change', filterAndSortNews);
+
+    function formatDate(dateStr) {
+      const date = new Date(dateStr);
+      return date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+    }
+  });
+ 
