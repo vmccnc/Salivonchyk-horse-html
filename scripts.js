@@ -1,7 +1,7 @@
 // scripts.js
 
 
-// header.js
+// Highlight active link in header navigation
 document.addEventListener('DOMContentLoaded', () => {
     // Get the current page's filename (if empty, default to "index.html")
     let currentPage = window.location.pathname.split('/').pop();
