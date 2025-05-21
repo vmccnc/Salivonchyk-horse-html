@@ -1,4 +1,14 @@
 /* Global resets or standard styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+:root {
+  --primary-dark: #1d1f27;
+  --primary-light: #2a2d3a;
+  --accent: #ff6b3d;
+  --bg: #f5f7fa;
+  --text: #333;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -6,21 +16,39 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
-  color: #333;
-  background: #f9f9f9;
-  line-height: 1.5;
+  font-family: 'Inter', Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.6;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+  background: #e05528;
+  transform: translateY(-2px);
 }
 
 
 /* header.css */
 .header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #333;
-    padding: 10px 20px;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
+  padding: 10px 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
   
   .header-container .logo a {
     color: #fff;
@@ -45,11 +73,12 @@ body {
     text-decoration: none;
     padding: 8px 12px;
     display: block;
+    transition: background 0.3s ease;
   }
-  
+
   .header-container nav ul li a:hover,
   .header-container nav ul li a.active {
-    background-color: #444;
+    background-color: var(--accent);
     border-radius: 4px;
   }
   
@@ -70,9 +99,10 @@ body {
 
 .highlight-cards article {
   flex: 1;
-  background: #f0f0f0;
+  background: #fff;
   padding: 1rem;
-  border-radius: 8px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .highlight-cards article h3 {
@@ -96,13 +126,7 @@ body {
 }
 
 .about-snippet a.btn {
-  display: inline-block;
   margin-top: 1rem;
-  padding: 0.6rem 1.2rem;
-  background: #333;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 4px;
 }
 
 
@@ -133,11 +157,6 @@ body {
 
 .our-horses a.btn {
   margin-top: 1rem;
-  padding: 0.6rem 1.2rem;
-  background: #000;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 4px;
 }
 
 
@@ -205,22 +224,31 @@ body {
   flex: 1;
   background: #fff;
   padding: 1rem;
-  border-radius: 8px;
+  border-radius: 12px;
   text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .quick-links .card a.btn {
   margin-top: 1rem;
   padding: 0.6rem 1.2rem;
-  background: #333;
+  background: var(--accent);
   color: #fff;
   text-decoration: none;
-  border-radius: 4px;
+  border-radius: 30px;
+  font-weight: 600;
+  display: inline-block;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.quick-links .card a.btn:hover {
+  background: #e05528;
+  transform: translateY(-2px);
 }
 
 /* Footer */
 footer {
-  background: #c30f0f;
+  background: var(--primary-dark);
   color: #fff;
   text-align: center;
   padding: 1rem;
@@ -248,8 +276,9 @@ footer {
   background: #fff;
   width: calc(33.333% - 2rem);
   padding: 1rem;
-  border-radius: 8px;
+  border-radius: 12px;
   text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .horse-card img {
@@ -407,7 +436,7 @@ footer {
 
 /*footer layout **/
 footer {
-  background: #333;
+  background: var(--primary-dark);
   color: #fff;
   text-align: center;
   padding: 2rem 1rem;
@@ -517,11 +546,17 @@ footer {
 
 .game a.btn {
   padding: 0.6rem 1.2rem;
-  background: #000;
+  background: var(--accent);
   color: #fff;
   text-decoration: none;
-  border-radius: 4px;
+  border-radius: 30px;
   font-weight: bold;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.game a.btn:hover {
+  background: #e05528;
+  transform: translateY(-2px);
 }
 
 .game-team {

@@ -1,17 +1,20 @@
 /* purchase.css */
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f9f9f9;
+  font-family: 'Inter', Arial, sans-serif;
+  background: #f5f7fa;
   color: #333;
 }
 
 /* Шапка и меню */
 header {
-  background: #333;
+  background: linear-gradient(135deg, #1d1f27, #2a2d3a);
   color: #fff;
   padding: 0.5rem 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
 header .logo {
@@ -36,11 +39,12 @@ nav ul li a {
   color: #fff;
   text-decoration: none;
   padding: 0.4rem 0.8rem;
+  transition: background 0.3s ease;
 }
 
 nav ul li a:hover,
 nav ul li a.active {
-  background: #444;
+  background: #ff6b3d;
   border-radius: 4px;
 }
 
@@ -92,16 +96,18 @@ main {
 
 .horse-card button {
   margin-top: 1rem;
-  background: #333;
+  background: #ff6b3d;
   color: #fff;
   border: none;
   padding: 0.6rem 1.2rem;
-  border-radius: 4px;
+  border-radius: 30px;
   cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .horse-card button:hover {
-  background: #444;
+  background: #e05528;
+  transform: translateY(-2px);
 }
 
 /* Модальное окно */
@@ -136,7 +142,7 @@ main {
 }
 
 .close:hover {
-  color: #333;
+  color: #1d1f27;
 }
 
 .modal-content form {
@@ -157,21 +163,23 @@ main {
 
 .modal-content button {
   align-self: flex-start;
-  background: #333;
+  background: #ff6b3d;
   color: #fff;
   border: none;
   padding: 0.6rem 1.2rem;
-  border-radius: 4px;
+  border-radius: 30px;
   cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .modal-content button:hover {
-  background: #444;
+  background: #e05528;
+  transform: translateY(-2px);
 }
 
 /* Подвал */
 footer {
-  background: #333;
+  background: #1d1f27;
   color: #fff;
   text-align: center;
   padding: 1rem;
