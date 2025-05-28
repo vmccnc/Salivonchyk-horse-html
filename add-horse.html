@@ -5,120 +5,139 @@
   <meta name="description" content="Добавить новую лошадь">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Add Horse - HorseFarm Admin</title>
-  <link rel="stylesheet" href="css/styles.css" /> 
   <style>
-    /* Common header styles */
-    .header-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #333;
-      padding: 10px 20px;
+    :root {
+      --bg: #F9FAFB;
+      --card-bg: #FFFFFF;
+      --text: #111827;
+      --border: #E5E7EB;
+      --placeholder: #9CA3AF;
+      --primary: #3B82F6;
+      --radius: 8px;
+      --spacing: 16px;
     }
-    .header-container .logo a {
-      color: #fff;
-      text-decoration: none;
-      font-size: 24px;
-      font-weight: bold;
-    }
-    .header-container nav ul {
-      list-style: none;
-      display: flex;
+    * { box-sizing: border-box; }
+    body {
       margin: 0;
-      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
     }
-    .header-container nav ul li {
-      margin-right: 15px;
-    }
-    .header-container nav ul li a {
-      color: #fff;
-      text-decoration: none;
-      padding: 8px 12px;
-      display: block;
-    }
-    .header-container nav ul li a:hover,
-    .header-container nav ul li a.active {
-      background: #444;
-      border-radius: 4px;
-    }
-    
-    /* Form container styling */
-    .form-container {
-      max-width: 1200px;
-      margin: 40px auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    .form-container h1 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    /* Single column layout */
-    .form-group {
+    header {
+      background: var(--bg);
       display: flex;
-      flex-direction: column;
-      margin-bottom: 15px;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--spacing) 2rem;
+    }
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+    nav a {
+      text-decoration: none;
+      color: var(--text);
+      font-size: 1rem;
+    }
+    .avatar img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+    }
+    main {
+      padding: 2rem;
+    }
+    .card {
+      background: var(--card-bg);
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    h1 {
+      margin-top: 0;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+    .form-group {
+      margin-bottom: 1.25rem;
     }
     .form-group label {
-      margin-bottom: 5px;
-      font-weight: bold;
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
     }
     .form-group input,
-    .form-group textarea,
-    .form-group select {
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 14px;
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 1rem;
+      color: var(--text);
+      background: #fff;
     }
-    /* Save button styling */
-    .form-container button {
-      margin-top: 20px;
-      padding: 10px;
-      background: #333;
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--placeholder);
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 6rem;
+    }
+    .form-group .radio-group {
+      display: flex;
+      gap: 1rem;
+    }
+    .button-wrapper {
+      display: flex;
+      justify-content: flex-end;
+    }
+    button {
+      background: var(--primary);
       color: #fff;
       border: none;
-      border-radius: 4px;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 500;
+      border-radius: var(--radius);
       cursor: pointer;
-      width: 200px;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
     }
-    .form-container button:hover {
-      background: #444;
+    button:hover {
+      background: #2563EB;
     }
   </style>
 </head>
 <body>
-  <!-- Common Header -->
   <header>
-    <div class="header-container">
-      <div class="logo">
-        <a href="index.html">Salivonchyk's Farm</a>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="horses.html">Horses</a></li>
-          <li><a href="news.html">News</a></li>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
-          <li><a href="purchase.html">Purchase horses</a></li> 
-          <li><a href="service.html">Services</a></li>
-          <li><a href="login.html">LogIn/LogOut</a></li>
-        </ul>
-      </nav>
+    <div class="logo">Salivonchyk's Farm</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="horses.html">Horses</a>
+      <a href="news.html">News</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="purchase.html">Purchase horses</a>
+      <a href="service.html">Services</a>
+      <a href="login.html">LogIn/LogOut</a>
+    </nav>
+    <div class="avatar">
+      <img src="https://via.placeholder.com/32" alt="User avatar">
     </div>
   </header>
 
-  <!-- Form Container -->
-  <div class="form-container">
-    <h1>Добавить новую лошадь</h1>
-    <form id="addHorseForm">
-      <!-- All fields in a single vertical column -->
+  <main>
+    <div class="card">
+      <h1>Добавить новую лошадь</h1>
+      <form id="addHorseForm">
       <div class="form-group">
         <label for="name">Название</label>
         <input type="text" id="name" name="name" required>
@@ -128,12 +147,11 @@
         <input type="number" id="yearOfBirth" name="yearOfBirth" required>
       </div>
       <div class="form-group">
-        <label for="gender">Пол</label>
-        <select id="gender" name="gender" required>
-          <option value="">Выберите пол</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-        </select>
+        <label>Пол</label>
+        <div class="radio-group">
+          <label><input type="radio" name="gender" value="Male" required> Male</label>
+          <label><input type="radio" name="gender" value="Female" required> Female</label>
+        </div>
       </div>
       
       <div class="form-group">
@@ -180,9 +198,12 @@
         <label for="imageUrl">URL изображения</label>
         <input type="text" id="imageUrl" name="imageUrl" required>
       </div>
-      <button type="submit">Сохранить</button>
-    </form>
-  </div>
+      <div class="button-wrapper">
+        <button type="submit">Сохранить</button>
+      </div>
+      </form>
+    </div>
+  </main>
 
   <footer>
   <div class="footer-content">
@@ -230,7 +251,7 @@
       const horseData = {
         name: document.getElementById('name').value.trim(),
         yearOfBirth: parseInt(document.getElementById('yearOfBirth').value),
-        gender: document.getElementById('gender').value.trim(),
+        gender: document.querySelector('input[name="gender"]:checked').value,
         breed: document.getElementById('breed').value.trim(),
         description: document.getElementById('description').value.trim(),
         purposeOfPurchase: document.getElementById('purposeOfPurchase').value, // selected purpose text
@@ -261,22 +282,6 @@
         alert('Ошибка при создании лошади');
       });
     });
-
-    const horseData = {
-  name: document.getElementById('name').value.trim(),
-  yearOfBirth: parseInt(document.getElementById('yearOfBirth').value),
-  gender: document.getElementById('gender').value, // Added field
-  breed: document.getElementById('breed').value.trim(),
-  description: document.getElementById('description').value.trim(),
-  purposeOfPurchase: document.getElementById('purposeOfPurchase').value.trim(),
-  price: parseInt(document.getElementById('price1').value),
-  price5: parseInt(document.getElementById('price5').value),
-  price10: parseInt(document.getElementById('price10').value),
-  price15: parseInt(document.getElementById('price15').value),
-  price20: parseInt(document.getElementById('price20').value),
-  minPayment: parseInt(document.getElementById('minPayment').value),
-  imageUrl: document.getElementById('imageUrl').value.trim()
-};
 
   </script>
 </body>
