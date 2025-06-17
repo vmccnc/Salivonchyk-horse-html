@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin News - HorseFarm</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .news-item {
+      background: #fafafa;
+      border: 1px solid #ddd;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+    }
+    .news-item h2 { margin: 0 0 0.5rem; }
+    form#addNewsForm { margin-top: 2rem; }
+    form#addNewsForm .form-group { margin-bottom: 1rem; }
+    form#addNewsForm label { display:block; margin-bottom:0.3rem; }
+    form#addNewsForm input,
+    form#addNewsForm textarea { width:100%; padding:0.5rem; border:1px solid #ccc; border-radius:4px; }
+    .button-wrapper { margin-top: 1rem; }
+    .button-wrapper button { background:#333; color:#fff; border:none; padding:0.6rem 1.2rem; border-radius:4px; cursor:pointer; }
+    .button-wrapper button:hover { background:#444; }
+  </style>
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <ul>
+        <li><a href="admin.html">Horses</a></li>
+        <li><a href="add-horse.html">Add Horses</a></li>
+        <li><a href="admin-service.html">Service</a></li>
+        <li><a href="admin-news.html">News</a></li>
+        <li><a href="admin-buyers.html">Buyers</a></li>
+      </ul>
+    </aside>
+    <div class="admin-main">
+      <h1>News Management</h1>
+      <section id="newsContainer"></section>
+      <section id="addNews">
+        <h2>Add News</h2>
+        <form id="addNewsForm">
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" required>
+          </div>
+          <div class="form-group">
+            <label for="brief">Brief</label>
+            <textarea id="brief" name="brief" rows="2" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="content">Content</label>
+            <textarea id="content" name="content" rows="4" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="publicationDate">Publication Date</label>
+            <input type="date" id="publicationDate" name="publicationDate" required>
+          </div>
+          <div class="form-group">
+            <label for="urlImage">Image URL</label>
+            <input type="text" id="urlImage" name="urlImage">
+          </div>
+          <div class="form-group">
+            <label for="urlVideo">Video URL</label>
+            <input type="text" id="urlVideo" name="urlVideo">
+          </div>
+          <div class="button-wrapper">
+            <button type="submit">Add</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 HorseFarm. Все права защищены.</p>
+      <div class="footer-media">
+        <h4>MEDIA:</h4>
+        <ul>
+          <li><a href="https://www.instagram.com/salivonchyk.llc/" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://www.tiktok.com/@salivonchyk.horses" target="_blank" rel="noopener">TikTok</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <p><strong>Email:</strong> <a href="mailto:tsalivonchyk@gmail.com">tsalivonchyk@gmail.com</a></p>
+        <p><strong>Phone:</strong> <a href="tel:+48790779222">+48 790 779 222</a></p>
+        <p><strong>Address:</strong><br> Europe, Poland,<br> 56 - 416 Twardogóra Brzezina, 3</p>
+      </div>
+    </div>
+  </footer>
+  <script>
+    // Fetch existing news
+    fetch('https://flato.q11.jvmhost.net/api/horses/news')
+      .then(r => r.json())
+      .then(data => {
+        const container = document.getElementById('newsContainer');
+        container.innerHTML = '';
+        data.forEach(item => {
+          const art = document.createElement('article');
+          art.className = 'news-item';
+          art.innerHTML = `<h2>${item.title}</h2><p>${item.publicationDate}</p><p>${item.brief}</p>`;
+          container.appendChild(art);
+        });
+      })
+      .catch(err => {
+        document.getElementById('newsContainer').innerHTML = '<p>Error loading news</p>';
+        console.error(err);
+      });
+
+    // Add news
+    document.getElementById('addNewsForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const payload = {
+        title: document.getElementById('title').value.trim(),
+        brief: document.getElementById('brief').value.trim(),
+        content: document.getElementById('content').value.trim(),
+        publicationDate: document.getElementById('publicationDate').value,
+        urlImage: document.getElementById('urlImage').value.trim(),
+        urlVideo: document.getElementById('urlVideo').value.trim()
+      };
+      fetch('https://flato.q11.jvmhost.net/api/horses/news', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      .then(res => {
+        if(!res.ok) throw new Error('Failed to add news');
+        return res.json();
+      })
+      .then(() => { alert('News added'); location.reload(); })
+      .catch(err => { console.error(err); alert('Error adding news'); });
+    });
+  </script>
+</body>
+</html>
