@@ -105,26 +105,17 @@
   </style>
 </head>
 <body>
-  <!-- Common Header -->
-  <header>
-    <div class="header-container">
-      <div class="logo">
-        <a href="index.html">Salivonchyk's Farm</a>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="horses.html">Horses</a></li>
-          <li><a href="news.html">News</a></li>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
-          <li><a href="purchase.html">Purchase horses</a></li> 
-          <li><a href="service.html">Services</a></li>
-          <li><a href="login.html">LogIn/LogOut</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <ul>
+        <li><a href="admin.html">Horses</a></li>
+        <li><a href="add-horse.html">Add Horses</a></li>
+        <li><a href="admin-service.html">Service</a></li>
+        <li><a href="admin-news.html">News</a></li>
+        <li><a href="admin-buyers.html">Buyers</a></li>
+      </ul>
+    </aside>
+    <div class="admin-main">
 
   <!-- Filter Block -->
   <div class="filter-block">
@@ -161,7 +152,8 @@
     </div>
   </div>
 </footer>
-
+    </div> <!-- admin-main -->
+  </div> <!-- admin-layout -->
 
   <script>
     // Fetch buyers data from the backend endpoint
