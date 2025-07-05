@@ -626,3 +626,24 @@ footer {
   flex: 1;
   padding: 20px;
 }
+
+/* Video Gallery */
+.video-gallery {
+  padding: 2rem;
+  background: #fff;
+  text-align: center;
+}
+
+.video-row {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.video-row iframe {
+  flex: 1 1 300px;
+  max-width: 100%;
+  height: 315px;
+}
+
